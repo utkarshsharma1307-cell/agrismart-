@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="login">Login - AgriProtect</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        .auth-logo-img {
+            height: 56px;
+            width: auto;
+        }
+        .password-input-wrapper {
+            position: relative;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-text-muted);
+            padding: 4px;
+        }
+        .password-toggle:hover {
+            color: var(--color-text);
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: var(--space-lg) 0;
+        }
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background-color: var(--color-border);
+        }
+        .divider-text {
+            padding: 0 var(--space-md);
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+        }
+        .demo-note {
+            background-color: var(--color-info-light);
+            color: var(--color-info);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--space-lg);
+        }
+    </style>
+</head>
+<body class="public-page">
+    <!-- Auth Layout -->
+    <div class="auth-layout">
+        <div class="auth-container">
+            <div class="auth-card">
+                <!-- Header -->
+                <div class="auth-header">
+                    <a href="index.html" class="auth-logo">
+                        <img src="img/logo.jpeg" alt="Agriii Logo" class="auth-logo-img">
+                    </a>
+                    <h1 class="auth-title" data-i18n="login">Login</h1>
+                    <p class="auth-subtitle" data-i18n="tagline">Smart Farming Companion</p>
+                </div>
+
+                <!-- Demo Notice -->
+                <div class="demo-note">
+                    <div class="flex items-center gap-sm" style="margin-bottom: var(--space-xs);">
+                        <i data-lucide="info" style="width: 16px; height: 16px;"></i>
+                        <strong>Demo Mode</strong>
+                    </div>
+                    Enter any 10-digit phone number and password to explore the app.
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="phone">
+                            <span data-i18n="phoneNumber">Phone Number</span>
+                            <span class="required">*</span>
+                        </label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            class="form-input"
+                            data-i18n-placeholder="phoneNumber"
+                            placeholder="Enter phone number"
+                            maxlength="10"
+                            autocomplete="tel"
+                        >
+                        <span class="form-error" id="phoneError" style="display: none;"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">
+                            <span data-i18n="password">Password</span>
+                            <span class="required">*</span>
+                        </label>
+                        <div class="password-input-wrapper">
+                            <input
+                                type="password"
+                                id="password"
+                                class="form-input"
+                                data-i18n-placeholder="password"
+                                placeholder="Enter password"
+                                autocomplete="current-password"
+                            >
+                            <button type="button" class="password-toggle" data-password-toggle>
+                                <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="passwordError" style="display: none;"></span>
+                    </div>
+
+                    <div class="flex items-center justify-between" style="margin-bottom: var(--space-lg);">
+                        <label class="form-check">
+                            <input type="checkbox" id="remember">
+                            <span data-i18n="remember">Remember me</span>
+                        </label>
+                        <a href="#" class="text-sm" data-i18n="forgotPassword">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i data-lucide="log-in" style="width: 18px; height: 18px;"></i>
+                        <span data-i18n="signIn">Sign In</span>
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <span class="divider-text" data-i18n="noAccount">Don't have an account?</span>
+                    <div class="divider-line"></div>
+                </div>
+
+                <!-- Create Account Button -->
+                <a href="create-account.html" class="btn btn-secondary" style="width: 100%;">
+                    <i data-lucide="user-plus" style="width: 18px; height: 18px;"></i>
+                    <span data-i18n="createAccount">Create Account</span>
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <p class="auth-footer"><a href="index.html">Back to Home</a></p>
+            <p class="auth-footer" data-i18n="copyright">© 2026 AgriProtect. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            const phoneInput = document.getElementById('phone');
+            const passwordInput = document.getElementById('password');
+            const passwordToggle = document.querySelector('[data-password-toggle]');
+
+            // Check if already logged in
+            if (window.Agriii?.Session?.isLoggedIn()) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // Password toggle
+            passwordToggle.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                const icon = this.querySelector('[data-lucide]');
+                icon.setAttribute('data-lucide', type === 'password' ? 'eye-off' : 'eye');
+                if (window.lucide) lucide.createIcons();
+            });
+
+            // Phone input formatting
+            phoneInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/\D/g, '').slice(0, 10);
+                window.Agriii?.Validator?.clearError(this);
+            });
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const phone = phoneInput.value.trim();
+                const password = passwordInput.value;
+                let isValid = true;
+
+                // Validate phone
+                if (!window.Agriii?.Validator?.phone(phone)) {
+                    window.Agriii?.Validator?.showError(phoneInput, window.Agriii?.Language?.t('invalidPhone'));
+                    isValid = false;
+                } else {
+                    window.Agriii?.Validator?.clearError(phoneInput);
+                }
+
+                // Validate password
+                if (!password) {
+                    window.Agriii?.Validator?.showError(passwordInput, window.Agriii?.Language?.t('requiredField'));
+                    isValid = false;
+                } else {
+                    window.Agriii?.Validator?.clearError(passwordInput);
+                }
+
+                if (!isValid) return;
+
+                // Demo login - accept any valid phone/password
+                const session = window.Agriii?.Session?.create({
+                    phone: phone,
+                    name: 'Demo Farmer'
+                });
+
+                window.Agriii?.Toast?.success(
+                    window.Agriii?.Language?.t('loginSuccess'),
+                    window.Agriii?.Language?.t('login')
+                );
+
+                // Redirect to dashboard
+                setTimeout(function() {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>

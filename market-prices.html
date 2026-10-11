@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="navMarketPrices">Market Prices - AgriProtect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header">
+                <img src="img/logo.jpeg" alt="AgriProtect Logo" class="sidebar-logo">
+                <div class="sidebar-brand" data-i18n="appName">AgriProtect</div>
+            </a>
+            <nav class="sidebar-nav">
+                <div class="nav-section-title" data-i18n="main">Main</div>
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="globe"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" data-i18n="navDashboard">
+                    <i data-lucide="home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <div class="nav-section-title" data-i18n="farmManagement">Farm Management</div>
+                <a href="soil-health.html" class="nav-item" data-i18n="navSoilHealth">
+                    <i data-lucide="leaf"></i>
+                    <span>Soil Health</span>
+                </a>
+                <a href="weather.html" class="nav-item" data-i18n="navWeather">
+                    <i data-lucide="cloud-sun"></i>
+                    <span>Weather</span>
+                </a>
+                <a href="crop-calendar.html" class="nav-item" data-i18n="navCropCalendar">
+                    <i data-lucide="calendar"></i>
+                    <span>Crop Calendar</span>
+                </a>
+                <div class="nav-section-title" data-i18n="tools">Tools</div>
+                <a href="crop-advisor.html" class="nav-item" data-i18n="navCropAdvisor">
+                    <i data-lucide="sprout"></i>
+                    <span>Crop Advisor</span>
+                </a>
+                <a href="disease-detection.html" class="nav-item" data-i18n="navDiseaseDetection">
+                    <i data-lucide="microscope"></i>
+                    <span>Disease Detection</span>
+                </a>
+                <a href="market-prices.html" class="nav-item active" data-i18n="navMarketPrices">
+                    <i data-lucide="trending-up"></i>
+                    <span>Market Prices</span>
+                </a>
+                <a href="profit-planner.html" class="nav-item" data-i18n="navProfitPlanner">
+                    <i data-lucide="calculator"></i>
+                    <span>Profit Planner</span>
+                </a>
+            </nav>
+            <div style="padding: var(--space-lg); border-top: 1px solid var(--color-border-subtle);">
+                <button class="nav-item" style="width: 100%; justify-content: flex-start;" data-logout>
+                    <i data-lucide="log-out"></i>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+        <div class="sidebar-overlay"></div>
+        <main class="app-main">
+            <header class="app-header">
+                <div class="flex items-center gap-md">
+                    <button class="btn btn-icon" data-sidebar-toggle style="display: none;">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1 class="page-title" data-i18n="navMarketPrices">Market Prices</h1>
+                </div>
+                <div class="flex items-center gap-sm">
+                    <button class="btn btn-icon" data-theme-toggle title="Toggle theme">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button class="btn btn-icon" data-language-toggle title="Toggle language">
+                        <span style="font-weight: 600;">EN</span>
+                    </button>
+                    <div style="width: 1px; height: 24px; background-color: var(--color-border);"></div>
+                    <button class="btn btn-icon" data-logout>
+                        <i data-lucide="log-out"></i>
+                    </button>
+                </div>
+            </header>
+            <div class="app-content">
+                <div class="page-header">
+                    <div>
+                        <h2 data-i18n="navMarketPrices">Market Prices</h2>
+                        <p class="text-muted text-sm">Mandi prices for Pune, Maharashtra</p>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" id="refreshPrices">
+                        <i data-lucide="rotate-cw"></i>
+                        <span>Update Prices</span>
+                    </button>
+                </div>
+
+                <div class="card" style="margin-bottom: var(--space-xl);">
+                    <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
+                        <div class="form-group" style="margin: 0; flex: 1; min-width: 180px;">
+                            <label class="form-label">Search Crop</label>
+                            <input type="search" id="cropSearch" class="form-input" placeholder="e.g., Rice, Wheat">
+                        </div>
+                        <div class="form-group" style="margin: 0; min-width: 180px;">
+                            <label class="form-label">Market</label>
+                            <select id="marketFilter" class="form-select">
+                                <option value="all">All Markets</option>
+                                <option value="pune">Pune APMC</option>
+                                <option value="mumbai">Mumbai APMC</option>
+                                <option value="nashik">Nashik APMC</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="pricesTable">
+                        <thead>
+                            <tr>
+                                <th>Crop</th>
+                                <th>Market</th>
+                                <th>Min Price (₹/quintal)</th>
+                                <th>Max Price (₹/quintal)</th>
+                                <th>Modal Price</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-crop="rice" data-market="pune">
+                                <td><strong>Rice (Sona Masuri)</strong></td>
+                                <td>Pune APMC</td>
+                                <td>₹2,200</td>
+                                <td>₹2,600</td>
+                                <td><strong>₹2,400</strong></td>
+                                <td><span class="text-success flex items-center gap-sm"><i data-lucide="arrow-up" style="width: 14px;"></i> 4.2%</span></td>
+                            </tr>
+                            <tr data-crop="wheat" data-market="pune">
+                                <td><strong>Wheat (Lokwan)</strong></td>
+                                <td>Pune APMC</td>
+                                <td>₹2,100</td>
+                                <td>₹2,450</td>
+                                <td><strong>₹2,280</strong></td>
+                                <td><span class="text-success flex items-center gap-sm"><i data-lucide="arrow-up" style="width: 14px;"></i> 2.8%</span></td>
+                            </tr>
+                            <tr data-crop="onion" data-market="nashik">
+                                <td><strong>Onion (Red)</strong></td>
+                                <td>Nashik APMC</td>
+                                <td>₹1,800</td>
+                                <td>₹2,400</td>
+                                <td><strong>₹2,100</strong></td>
+                                <td><span class="text-danger flex items-center gap-sm"><i data-lucide="arrow-down" style="width: 14px;"></i> 3.5%</span></td>
+                            </tr>
+                            <tr data-crop="cotton" data-market="pune">
+                                <td><strong>Cotton (Medium Staple)</strong></td>
+                                <td>Pune APMC</td>
+                                <td>₹6,800</td>
+                                <td>₹7,400</td>
+                                <td><strong>₹7,100</strong></td>
+                                <td><span class="text-success flex items-center gap-sm"><i data-lucide="arrow-up" style="width: 14px;"></i> 1.6%</span></td>
+                            </tr>
+                            <tr data-crop="sugarcane" data-market="pune">
+                                <td><strong>Sugarcane</strong></td>
+                                <td>Pune APMC</td>
+                                <td>₹3,100</td>
+                                <td>₹3,400</td>
+                                <td><strong>₹3,250</strong></td>
+                                <td><span class="text-muted">— 0.4%</span></td>
+                            </tr>
+                            <tr data-crop="tomato" data-market="pune">
+                                <td><strong>Tomato</strong></td>
+                                <td>Pune APMC</td>
+                                <td>₹2,800</td>
+                                <td>₹3,600</td>
+                                <td><strong>₹3,200</strong></td>
+                                <td><span class="text-success flex items-center gap-sm"><i data-lucide="arrow-up" style="width: 14px;"></i> 8.1%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="text-xs text-muted" style="margin-top: var(--space-md);">Demo data for illustration. Prices are not live market data.</p>
+            </div>
+        </main>
+    </div>
+    <script>
+        function updateMenuToggle() {
+            document.querySelector('[data-sidebar-toggle]').style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+        }
+        updateMenuToggle();
+        window.addEventListener('resize', updateMenuToggle);
+    </script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.Agriii.Session.requireAuth()) return;
+            document.querySelector('[data-language-toggle]').textContent = window.Agriii.Language.get() === 'en' ? 'EN' : 'HI';
+            const search = document.getElementById('cropSearch');
+            const market = document.getElementById('marketFilter');
+            const rows = Array.from(document.querySelectorAll('#pricesTable tbody tr'));
+            function filterRows() {
+                const q = search.value.toLowerCase();
+                const m = market.value;
+                rows.forEach(row => {
+                    const crop = row.dataset.crop;
+                    const rowMarket = row.dataset.market;
+                    row.style.display = (!q || crop.includes(q)) && (m === 'all' || rowMarket === m) ? '' : 'none';
+                });
+            }
+            search.addEventListener('input', filterRows);
+            market.addEventListener('change', filterRows);
+            document.getElementById('refreshPrices').addEventListener('click', () => window.Agriii.Toast.info('Prices updated', 'Market Prices'));
+        });
+    </script>
+</body>
+</html>

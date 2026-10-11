@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriProtect - Smart Farming Companion</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Specific Landing Page Overrides for Modern Layout */
+        .landing-main .hero-split {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2xl);
+            align-items: center;
+            max-width: var(--content-max-width);
+            margin: 0 auto;
+            padding: var(--space-3xl) var(--space-xl) var(--space-2xl);
+        }
+        @media (min-width: 900px) {
+            .landing-main .hero-split {
+                flex-direction: row;
+                padding: 100px var(--space-xl) 60px;
+            }
+        }
+        .hero-text {
+            flex: 1;
+            text-align: left;
+        }
+        .hero-visual {
+            flex: 1;
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .mockup-card {
+            background: var(--color-paper);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 2;
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+            transition: transform var(--transition-slow);
+        }
+        .mockup-card:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-8px);
+        }
+        .blob-bg {
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: var(--color-primary);
+            opacity: 0.15;
+            filter: blur(50px);
+            border-radius: var(--radius-full);
+            z-index: 1;
+        }
+
+        .category-header {
+            max-width: 700px;
+            margin: 0 auto var(--space-xl);
+            text-align: center;
+        }
+
+        .ai-banner {
+            background: var(--color-primary);
+            color: #fff;
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl) var(--space-xl);
+            margin: var(--space-3xl) auto;
+            max-width: var(--content-max-width);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-banner h2 {
+            color: #fff;
+            margin-bottom: var(--space-md);
+        }
+        .ai-banner p {
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 500px;
+            margin-bottom: var(--space-xl);
+            font-size: var(--font-size-lg);
+        }
+        .ai-banner .lucide {
+            color: var(--color-secondary);
+            margin-bottom: var(--space-sm);
+        }
+    </style>
+</head>
+<body class="public-page">
+    <!-- Landing Layout -->
+    <div class="landing-layout">
+        <!-- Header -->
+        <header class="landing-header">
+            <nav class="landing-nav">
+                <div class="flex items-center gap-md">
+                    <a href="index.html" class="navbar-brand">
+                        <img src="img/logo.jpeg" alt="AgriProtect Logo" style="height: 36px; border-radius: var(--radius-xs);">
+                        <span data-i18n="appName">AgriProtect</span>
+                    </a>
+                    <span class="badge badge-primary">Beta</span>
+                </div>
+
+                <div class="navbar-menu">
+                    <a href="#features" class="nav-item" data-i18n="features">Features</a>
+                    <a href="dashboard.html" class="nav-item" data-i18n="navDashboard">Dashboard</a>
+                    <a href="voice-guide.html" class="nav-item" data-i18n="navVoiceGuide">Voice Guide</a>
+                    <button type="button" class="btn btn-icon" data-theme-toggle title="Toggle theme" style="color: var(--color-text);">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-voice-toggle title="Voice Guide" aria-label="Voice Guide" onclick="window.toggleVoiceAssistant && window.toggleVoiceAssistant()">
+                        <i data-lucide="mic"></i>
+                        <span class="hide-mobile">Voice</span>
+                    </button>
+                    <a href="login.html" class="btn btn-outline-primary btn-sm" data-i18n="login">Login</a>
+                    <a href="create-account.html" class="btn btn-primary btn-sm" data-i18n="createAccount">Get Started</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="landing-main">
+
+            <!-- Hero Section Split Layout -->
+            <section class="hero-split">
+                <div class="hero-text">
+                    <span class="badge badge-primary" style="margin-bottom: var(--space-md); display: inline-block;">New: Offline PWA & Multi-Farm</span>
+                    <h1 class="hero-title" style="font-size: var(--font-size-4xl); line-height: 1.1; margin-bottom: var(--space-lg); font-family: var(--font-serif); text-align: left;">
+                        <span style="color: var(--color-text);">Your Farm.</span><br>
+                        <span style="color: var(--color-text);">Your Data.</span><br>
+                        <span style="color: var(--color-primary);">Your Growth.</span>
+                    </h1>
+                    <p class="hero-subtitle" data-i18n="heroSubtitle" style="font-size: var(--font-size-lg); color: var(--color-text-secondary); max-width: 500px; margin-bottom: var(--space-xl); text-align: left;">
+                        Monitor soil health, track weather, get crop advice, and plan your profits all in one simple, beautiful app carefully designed for Indian farmers.
+                    </p>
+                    <div class="hero-actions" style="justify-content: flex-start;">
+                        <a href="create-account.html" class="btn btn-primary btn-lg" data-i18n="createAccount">Get Started Free</a>
+                        <a href="#features" class="btn btn-secondary btn-lg" style="background: transparent;">Explore Tools</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="blob-bg"></div>
+                    <div class="mockup-card">
+                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg);">
+                             <div style="width: 40%; height: 8px; background: var(--color-primary); border-radius: var(--radius-full); opacity: 0.5;"></div>
+                             <div style="display: flex; gap: 8px;">
+                                <div style="width: 32px; height: 32px; background: var(--color-surface); border-radius: 50%;"></div>
+                             </div>
+                         </div>
+                         <h3 style="font-size: var(--font-size-xl); margin-bottom: var(--space-md); font-family: var(--font-serif);">Farm Dashboard</h3>
+                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-bottom: var(--space-md);">
+                             <div style="background: var(--color-primary-light); height: 90px; border-radius: var(--radius-md); padding: var(--space-md); display: flex; flex-direction: column; justify-content: space-between;">
+                                 <i data-lucide="cloud-sun" style="color: var(--color-primary); width: 24px; height: 24px;"></i>
+                                 <div style="width: 60%; height: 6px; background: rgba(74,103,65,0.2); border-radius: var(--radius-full);"></div>
+                             </div>
+                             <div style="background: var(--color-secondary-light); height: 90px; border-radius: var(--radius-md); padding: var(--space-md); display: flex; flex-direction: column; justify-content: space-between;">
+                                 <i data-lucide="leaf" style="color: var(--color-secondary); width: 24px; height: 24px;"></i>
+                                 <div style="width: 60%; height: 6px; background: rgba(200,121,65,0.2); border-radius: var(--radius-full);"></div>
+                             </div>
+                         </div>
+                         <div style="background: var(--color-surface); height: 160px; border-radius: var(--radius-md); padding: var(--space-md);">
+                             <div style="width: 100%; height: 100%; border: 2px dashed var(--color-border); border-radius: var(--radius-sm); display: flex; justify-content: center; align-items: center; color: var(--color-text-muted);">
+                                 <i data-lucide="bar-chart-3" style="width: 48px; height: 48px; opacity: 0.5;"></i>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Group 1: Intelligent Farm Management -->
+            <section id="features" class="features" style="padding-top: var(--space-xl);">
+                <div class="category-header">
+                    <h2 style="font-size: var(--font-size-2xl);">Intelligent Insights</h2>
+                    <p class="text-muted" data-i18n="featuresDesc">Stay ahead of the curve with smart weather, soil, and crop analytics.</p>
+                </div>
+                <div class="features-grid">
+                    <a href="soil-health.html" class="feature-card">
+                        <div class="feature-icon"><i data-lucide="leaf"></i></div>
+                        <h3 class="feature-title" data-i18n="navSoilHealth">Soil Health</h3>
+                        <p class="feature-description">Monitor soil moisture, pH, and nutrients with precise recommendations.</p>
+                    </a>
+                    <a href="weather.html" class="feature-card">
+                        <div class="feature-icon"><i data-lucide="cloud-sun"></i></div>
+                        <h3 class="feature-title" data-i18n="navWeather">Local Weather</h3>
+                        <p class="feature-description">Illustrative snapshots and 7-day demo forecasts tailored to your location.</p>
+                    </a>
+                    <a href="crop-advisor.html" class="feature-card">
+                        <div class="feature-icon"><i data-lucide="sprout"></i></div>
+                        <h3 class="feature-title" data-i18n="navCropAdvisor">Crop Advisor</h3>
+                        <p class="feature-description">Personalized planting recommendations based on season and market.</p>
+                    </a>
+                    <a href="disease-detection.html" class="feature-card">
+                        <div class="feature-icon"><i data-lucide="microscope"></i></div>
+                        <h3 class="feature-title" data-i18n="navDiseaseDetection">Disease Detection</h3>
+                        <p class="feature-description">Upload crop photos for rapid simulated disease guidance and remedies.</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Big Assistant Banner -->
+            <section style="padding: 0 var(--space-lg);">
+                <div class="ai-banner">
+                    <i data-lucide="bot" style="width: 48px; height: 48px;"></i>
+                    <h2>Meet Your Voice Assistant</h2>
+                    <p>Farming guidance completely local and private. Simply tap the microphone and speak in Hindi or English from anywhere in the app.</p>
+                    <div style="display: flex; gap: var(--space-md);">
+                        <a href="assistant.html" class="btn btn-secondary" style="color: var(--color-primary); border: none;">Text Assistant</a>
+                        <a href="voice-guide.html" class="btn ghost" style="color: white; border: 1px solid rgba(255,255,255,0.4);">Read Voice Guide</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Group 2: Operations & Planning -->
+            <section class="features">
+                <div class="category-header">
+                    <h2 style="font-size: var(--font-size-2xl);">Operations & Planning</h2>
+                    <p class="text-muted">Organize your schedules, plan resource usage, and prepare for harvest.</p>
+                </div>
+                <div class="features-grid">
+                    <a href="crop-calendar.html" class="feature-card">
+                        <div class="feature-icon"><i data-lucide="calendar"></i></div>
+                        <h3 class="feature-title" data-i18n="navCropCalendar">Crop Calendar</h3>
+                        <p class="feature-description">Manage all sowing, irrigation, and harvesting timelines in one place.</p>
+                    </a>
+                    <a href="tasks.html" class="feature-card">
+                        <div class="feature-icon"><i data-lucide="list-checks"></i></div>
+                        <h3 class="feature-title" data-i18n="navTasks">Task Reminders</h3>
+                        <p class="feature-description">Smart reminders for watering, fertilizing, and daily maintenance.</p>
+                    </a>
+                    <a href="irrigation-calculator.html" class="feature-card">
+                        <div class="feature-icon"><i data-lucide="droplet"></i></div>
+                        <h3 class="feature-title">Irrigation Calculator</h3>
+                        <p class="feature-description">Calculate precise water requirements based on your acreage.</p>
+                    </a>
+                    <a href="harvest-planner.html" class="feature-card">
+                        <div class="feature-icon"><i data-lucide="truck"></i></div>
+                        <h3 class="feature-title" data-i18n="navHarvestPlanner">Harvest Planner</h3>
+                        <p class="feature-description">Estimate dates and production yields directly from your sowing logs.</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Financial Section (Existing Premium Section) -->
+            <section class="features" style="background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-primary-light) 100%); padding: var(--space-3xl) var(--space-xl);">
+                <div class="category-header">
+                    <h2 style="font-size: var(--font-size-3xl); font-family: var(--font-serif);">Complete Financial Management</h2>
+                    <p class="text-muted">Bring all your financial tools together — track expenses, plan profits, and monitor markets all in one hub.</p>
+                </div>
+                <div class="features-grid" style="max-width: 1000px; margin: 0 auto;">
+                    <a href="profit-planner.html" class="feature-card" style="background: var(--color-bg);">
+                        <div class="feature-icon" style="background-color: var(--color-primary-light);"><i data-lucide="calculator" style="color: var(--color-primary);"></i></div>
+                        <h3 class="feature-title">Profit Planning</h3>
+                        <p class="feature-description">Detailed break-even analysis and profit margin calculations for every crop.</p>
+                    </a>
+                    <a href="market-prices.html" class="feature-card" style="background: var(--color-bg);">
+                        <div class="feature-icon" style="background-color: var(--color-success-light);"><i data-lucide="trending-up" style="color: var(--color-success);"></i></div>
+                        <h3 class="feature-title">Market Intelligence</h3>
+                        <p class="feature-description">Illustrative mandi price examples and historical market trends.</p>
+                    </a>
+                    <a href="expenses.html" class="feature-card" style="background: var(--color-bg);">
+                        <div class="feature-icon" style="background-color: var(--color-warning-light);"><i data-lucide="wallet" style="color: var(--color-warning);"></i></div>
+                        <h3 class="feature-title">Expense Tracking</h3>
+                        <p class="feature-description">Categorized expense records to perfectly understand spending.</p>
+                    </a>
+                    <a href="crop-comparison.html" class="feature-card" style="background: var(--color-bg);">
+                        <div class="feature-icon" style="background-color: var(--color-info-light);"><i data-lucide="bar-chart-3" style="color: var(--color-info);"></i></div>
+                        <h3 class="feature-title">Crop Comparison</h3>
+                        <p class="feature-description">Compare harvest estimates and profit potential side by side.</p>
+                    </a>
+                </div>
+                <div style="text-center; margin-top: var(--space-2xl); display: flex; justify-content: center;">
+                     <a href="farmer-finance.html" class="btn btn-primary btn-lg">Open Farmer Finance Dashboard</a>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="hero" style="background: var(--color-primary-light); border-top: 1px solid var(--color-border); padding: 80px 20px;">
+                <div class="hero-content">
+                    <h2 class="hero-title" style="font-size: var(--font-size-3xl); font-family: var(--font-serif); margin-bottom: var(--space-md);">
+                        Ready to empower your farming decisions?
+                    </h2>
+                    <p class="hero-subtitle">
+                        Start utilizing completely offline tools designed to give you clarity and confidence on the field.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="create-account.html" class="btn btn-primary btn-lg" data-i18n="createAccount">Create Free Account</a>
+                        <a href="dashboard.html" class="btn btn-secondary btn-lg" style="background: white;">Try Demo Dashboard</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="landing-footer">
+            <div class="footer-content">
+                <div class="flex items-center gap-md">
+                    <a href="index.html" class="navbar-brand">
+                        <img src="img/logo.jpeg" alt="AgriProtect Logo" style="height: 32px; border-radius: var(--radius-xs);">
+                        <span data-i18n="appName">AgriProtect</span>
+                    </a>
+                    <span class="text-muted" data-i18n="tagline">Smart Farming Companion</span>
+                </div>
+
+                <nav class="footer-links" aria-label="Site pages">
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="soil-health.html">Soil Health</a>
+                    <a href="weather.html">Weather</a>
+                    <a href="crop-advisor.html">Crop Advisor</a>
+                    <a href="disease-detection.html">Disease Detection</a>
+                    <a href="crop-calendar.html">Crop Calendar</a>
+                    <a href="market-prices.html">Market Prices</a>
+                    <a href="profit-planner.html">Profit Planner</a>
+                    <a href="farmer-finance.html">Farmer Finance</a>
+                    <a href="expenses.html">Expenses</a>
+                    <a href="tasks.html">Tasks</a>
+                    <a href="irrigation-calculator.html">Irrigation</a>
+                    <a href="fertilizer-calculator.html">Fertilizer</a>
+                    <a href="crop-comparison.html">Crop Comparison</a>
+                    <a href="harvest-planner.html">Harvest Planner</a>
+                    <a href="assistant.html">Assistant</a>
+                    <a href="settings.html">Settings</a>
+                    <a href="login.html">Login</a>
+                    <a href="create-account.html">Create Account</a>
+                    <a href="voice-guide.html">Voice Guide</a>
+                </nav>
+            </div>
+            <div class="footer-text" style="max-width: var(--content-max-width); margin: var(--space-md) auto 0;">
+                <p data-i18n="copyright">© 2026 AgriProtect. All rights reserved.</p>
+                <p data-i18n="madeWith">Made with ❤️ for Indian farmers</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+    <script>
+        // Initialize language
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set active nav item
+            const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-item').forEach(item => {
+                if (item.getAttribute('href') === currentPath) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault();
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="createAccount">Create Account - AgriProtect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .auth-logo-img { height: 56px; width: auto; }
+        .step-actions { display: flex; justify-content: space-between; margin-top: var(--space-xl); }
+        .step-content { display: none; }
+        .step-content.active { display: block; }
+    </style>
+</head>
+<body class="public-page">
+    <div class="auth-layout">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <a href="index.html" class="auth-logo">
+                        <img src="img/logo.jpeg" alt="AgriProtect Logo" class="auth-logo-img">
+                    </a>
+                    <h1 class="auth-title" data-i18n="createAccount">Create Account</h1>
+                    <p class="auth-subtitle" data-i18n="tagline">Smart Farming Companion</p>
+                </div>
+
+                <!-- Stepper -->
+                <div class="stepper">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <span class="step-label">Account</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <span class="step-label">Farm</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <span class="step-label">Confirm</span>
+                    </div>
+                </div>
+
+                <form id="createAccountForm">
+                    <!-- Step 1: Basic Info -->
+                    <div class="step-content active" data-step="1">
+                        <div class="form-group">
+                            <label class="form-label" for="fullName">
+                                <span data-i18n="fullName">Full Name</span>
+                                <span class="required">*</span>
+                            </label>
+                            <input type="text" id="fullName" class="form-input" data-i18n-placeholder="fullName" placeholder="Enter your name" autocomplete="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">
+                                <span data-i18n="phoneNumber">Phone Number</span>
+                                <span class="required">*</span>
+                            </label>
+                            <input type="tel" id="phone" class="form-input" placeholder="10-digit number" maxlength="10" inputmode="numeric" autocomplete="tel" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">
+                                <span data-i18n="email">Email Address</span>
+                                <span class="required">*</span>
+                            </label>
+                            <input type="email" id="email" class="form-input" data-i18n-placeholder="email" placeholder="email@example.com" autocomplete="email" required>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Farm Info -->
+                    <div class="step-content" data-step="2">
+                        <div class="form-group">
+                            <label class="form-label" for="state">
+                                State <span class="required">*</span>
+                            </label>
+                            <select id="state" class="form-select" required>
+                                <option value="">Select state</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Gujarat">Gujarat</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="district">
+                                District <span class="required">*</span>
+                            </label>
+                            <input type="text" id="district" class="form-input" placeholder="Enter district" required>
+                        </div>
+                        <div class="flex gap-md">
+                            <div class="form-group" style="flex: 2;">
+                                <label class="form-label">
+                                    Farm Size <span class="required">*</span>
+                                </label>
+                                <input type="number" id="farmSize" class="form-input" placeholder="e.g., 5" min="0.1" step="0.1" inputmode="decimal" required>
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label class="form-label">&nbsp;</label>
+                                <select id="farmUnit" class="form-select">
+                                    <option value="acres">Acres</option>
+                                    <option value="hectares">Hectares</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="primaryCrop">
+                                Primary Crop <span class="required">*</span>
+                            </label>
+                            <select id="primaryCrop" class="form-select" required>
+                                <option value="">Select crop</option>
+                                <option value="rice" data-i18n="rice">Rice</option>
+                                <option value="wheat" data-i18n="wheat">Wheat</option>
+                                <option value="sugarcane" data-i18n="sugarcane">Sugarcane</option>
+                                <option value="cotton" data-i18n="cotton">Cotton</option>
+                                <option value="maize" data-i18n="maize">Maize</option>
+                                <option value="pulses" data-i18n="pulses">Pulses</option>
+                                <option value="vegetables" data-i18n="vegetables">Vegetables</option>
+                                <option value="fruits" data-i18n="fruits">Fruits</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Preferences -->
+                    <div class="step-content" data-step="3">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Preferred Language <span class="required">*</span>
+                            </label>
+                            <div class="flex gap-md">
+                                <label class="form-check" style="flex: 1; padding: var(--space-md); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;">
+                                    <input type="radio" name="language" value="en" checked>
+                                    <div>
+                                        <strong>English</strong>
+                                        <div class="text-xs text-muted">अंग्रेज़ी</div>
+                                    </div>
+                                </label>
+                                <label class="form-check" style="flex: 1; padding: var(--space-md); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer;">
+                                    <input type="radio" name="language" value="hi">
+                                    <div>
+                                        <strong>Hindi</strong>
+                                        <div class="text-xs text-muted">हिंदी</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="soilType">Soil Type</label>
+                            <select id="soilType" class="form-select">
+                                <option value="">Select soil type</option>
+                                <option value="alluvial">Alluvial</option>
+                                <option value="black">Black (Regur)</option>
+                                <option value="red">Red</option>
+                                <option value="laterite">Laterite</option>
+                                <option value="sandy">Sandy</option>
+                                <option value="clay">Clay</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="irrigation">Irrigation Source</label>
+                            <select id="irrigation" class="form-select">
+                                <option value="">Select source</option>
+                                <option value="canal">Canal</option>
+                                <option value="borewell">Borewell</option>
+                                <option value="well">Well</option>
+                                <option value="river">River</option>
+                                <option value="rainfed">Rainfed</option>
+                                <option value="drip">Drip Irrigation</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="step-actions">
+                        <button type="button" class="btn btn-secondary hidden" id="prevBtn" data-i18n="cancel">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="nextBtn">
+                            <span data-i18n="next">Next</span>
+                            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <p class="auth-footer"><span data-i18n="hasAccount">Already have an account?</span> <a href="login.html" data-i18n="login">Login</a></p>
+                <p class="auth-footer"><a href="index.html">Back to Home</a></p>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentStep = 1;
+            const totalSteps = 3;
+
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const form = document.getElementById('createAccountForm');
+            const validator = window.Agriii.Validator;
+
+            const fieldsByStep = {
+                1: [
+                    { id: 'fullName', validate: value => validator.required(value), message: () => window.Agriii.Language.t('requiredField') },
+                    { id: 'phone', validate: value => validator.phone(value), message: () => window.Agriii.Language.t('invalidPhone') },
+                    { id: 'email', validate: value => validator.email(value), message: () => window.Agriii.Language.get() === 'hi' ? 'कृपया वैध ईमेल पता दर्ज करें।' : 'Please enter a valid email address.' }
+                ],
+                2: [
+                    { id: 'state', validate: value => validator.required(value), message: () => window.Agriii.Language.t('requiredField') },
+                    { id: 'district', validate: value => validator.required(value), message: () => window.Agriii.Language.t('requiredField') },
+                    { id: 'farmSize', validate: value => Number.isFinite(Number.parseFloat(value)) && Number.parseFloat(value) > 0, message: () => window.Agriii.Language.get() === 'hi' ? 'खेत का आकार शून्य से बड़ा होना चाहिए।' : 'Farm size must be greater than zero.' },
+                    { id: 'primaryCrop', validate: value => validator.required(value), message: () => window.Agriii.Language.t('requiredField') }
+                ],
+                3: []
+            };
+
+            function getValue(id) {
+                return document.getElementById(id)?.value.trim() || '';
+            }
+
+            function clearFieldError(input) {
+                validator.clearError(input);
+                input.removeAttribute('aria-invalid');
+                input.removeAttribute('aria-describedby');
+            }
+
+            function setFieldError(input, message) {
+                validator.showError(input, message);
+                input.setAttribute('aria-invalid', 'true');
+                const errorEl = input.nextElementSibling;
+                if (errorEl && errorEl.classList.contains('form-error')) {
+                    const errorId = input.id + 'Error';
+                    errorEl.id = errorId;
+                    input.setAttribute('aria-describedby', errorId);
+                }
+            }
+
+            function validateStep(step) {
+                let valid = true;
+                let firstInvalid = null;
+                (fieldsByStep[step] || []).forEach(field => {
+                    const input = document.getElementById(field.id);
+                    if (!input) return;
+                    if (!field.validate(getValue(field.id))) {
+                        setFieldError(input, field.message());
+                        valid = false;
+                        if (!firstInvalid) firstInvalid = input;
+                    } else {
+                        clearFieldError(input);
+                    }
+                });
+
+                if (!valid) {
+                    window.Agriii.Toast.warning(
+                        window.Agriii.Language.get() === 'hi' ? 'कृपया चिह्नित फ़ील्ड ठीक करें।' : 'Please fix the highlighted fields before continuing.',
+                        window.Agriii.Language.get() === 'hi' ? 'जांच आवश्यक' : 'Validation needed'
+                    );
+                    firstInvalid?.focus();
+                }
+                return valid;
+            }
+
+            function updateStep() {
+                document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.step').forEach((el, idx) => {
+                    const stepNum = idx + 1;
+                    el.classList.remove('active', 'completed');
+                    el.setAttribute('aria-current', stepNum === currentStep ? 'step' : 'false');
+                    if (stepNum < currentStep) el.classList.add('completed');
+                    if (stepNum === currentStep) el.classList.add('active');
+                });
+                document.querySelector(`.step-content[data-step="${currentStep}"]`)?.classList.add('active');
+                prevBtn.classList.toggle('hidden', currentStep === 1);
+                nextBtn.innerHTML = currentStep === totalSteps
+                    ? '<i data-lucide="check"></i><span data-i18n="createAccount">Create Account</span>'
+                    : '<span data-i18n="next">Next</span><i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>';
+                nextBtn.setAttribute('aria-label', currentStep === totalSteps ? window.Agriii.Language.t('createAccount') : window.Agriii.Language.t('next'));
+                window.Agriii.Language.updatePageContent(window.Agriii.Language.get());
+                if (window.lucide) lucide.createIcons();
+            }
+
+            form.addEventListener('input', event => {
+                if (event.target.matches('input, select')) clearFieldError(event.target);
+            });
+            form.addEventListener('change', event => {
+                if (event.target.matches('input, select')) clearFieldError(event.target);
+            });
+
+            document.getElementById('phone').addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '').slice(0, 10);
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentStep > 1) { currentStep--; updateStep(); }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (!validateStep(currentStep)) return;
+
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStep();
+                    return;
+                }
+
+                const selectedLanguage = form.querySelector('input[name="language"]:checked')?.value || 'en';
+                const defaults = window.Agriii.Profile.getDefault();
+                const profile = {
+                    ...defaults,
+                    name: getValue('fullName'),
+                    phone: getValue('phone'),
+                    email: getValue('email'),
+                    state: getValue('state'),
+                    district: getValue('district'),
+                    farmSize: Number.parseFloat(getValue('farmSize')),
+                    farmUnit: document.getElementById('farmUnit').value,
+                    primaryCrop: getValue('primaryCrop'),
+                    preferredLanguage: selectedLanguage,
+                    soilType: getValue('soilType') || defaults.soilType,
+                    irrigationSource: getValue('irrigation') || defaults.irrigationSource,
+                    updatedAt: new Date().toISOString()
+                };
+
+                window.Agriii.Profile.set(profile);
+                window.Agriii.Language.set(selectedLanguage);
+                window.Agriii.Session.create({ name: profile.name, phone: profile.phone, email: profile.email });
+                window.Agriii.Toast.success(
+                    selectedLanguage === 'hi' ? 'खाता बन गया। आपका प्रोफ़ाइल स्थानीय रूप से सेव हो गया है।' : 'Account created. Your profile was saved locally.',
+                    selectedLanguage === 'hi' ? 'स्वागत है' : 'Welcome'
+                );
+                setTimeout(() => window.location.href = 'dashboard.html', 1000);
+            });
+
+            updateStep();
+        });
+    </script>
+</body>
+</html>

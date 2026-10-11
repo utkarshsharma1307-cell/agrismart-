@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="navDiseaseDetection">Disease Detection - AgriProtect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .upload-zone {
+            border: 2px dashed var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-3xl);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        .upload-zone:hover, .upload-zone:focus-visible, .upload-zone.dragover {
+            border-color: var(--color-primary);
+            background-color: var(--color-primary-light);
+        }
+        .upload-zone:focus-visible {
+            outline: none;
+            box-shadow: var(--color-focus-ring);
+        }
+        .upload-zone svg {
+            width: 48px;
+            height: 48px;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-md);
+        }
+        .preview-container {
+            display: none;
+            margin-top: var(--space-lg);
+        }
+        .preview-container.active {
+            display: block;
+        }
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: var(--radius-md);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header">
+                <img src="img/logo.jpeg" alt="AgriProtect Logo" class="sidebar-logo">
+                <div class="sidebar-brand" data-i18n="appName">AgriProtect</div>
+            </a>
+            <nav class="sidebar-nav">
+                <div class="nav-section-title" data-i18n="main">Main</div>
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="globe"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" data-i18n="navDashboard">
+                    <i data-lucide="home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <div class="nav-section-title" data-i18n="farmManagement">Farm Management</div>
+                <a href="soil-health.html" class="nav-item" data-i18n="navSoilHealth">
+                    <i data-lucide="leaf"></i>
+                    <span>Soil Health</span>
+                </a>
+                <a href="weather.html" class="nav-item" data-i18n="navWeather">
+                    <i data-lucide="cloud-sun"></i>
+                    <span>Weather</span>
+                </a>
+                <a href="crop-calendar.html" class="nav-item" data-i18n="navCropCalendar">
+                    <i data-lucide="calendar"></i>
+                    <span>Crop Calendar</span>
+                </a>
+                <div class="nav-section-title" data-i18n="tools">Tools</div>
+                <a href="crop-advisor.html" class="nav-item" data-i18n="navCropAdvisor">
+                    <i data-lucide="sprout"></i>
+                    <span>Crop Advisor</span>
+                </a>
+                <a href="disease-detection.html" class="nav-item active" data-i18n="navDiseaseDetection">
+                    <i data-lucide="microscope"></i>
+                    <span>Disease Detection</span>
+                </a>
+            </nav>
+            <div style="padding: var(--space-lg); border-top: 1px solid var(--color-border-subtle);">
+                <button class="nav-item" style="width: 100%; justify-content: flex-start;" data-logout>
+                    <i data-lucide="log-out"></i>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+        <div class="sidebar-overlay"></div>
+        <main class="app-main">
+            <header class="app-header">
+                <div class="flex items-center gap-md">
+                    <button class="btn btn-icon" data-sidebar-toggle style="display: none;">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1 class="page-title" data-i18n="navDiseaseDetection">Disease Detection</h1>
+                </div>
+                <div class="flex items-center gap-sm">
+                    <button class="btn btn-icon" data-theme-toggle title="Toggle theme">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button class="btn btn-icon" data-language-toggle title="Toggle language">
+                        <span style="font-weight: 600;">EN</span>
+                    </button>
+                    <div style="width: 1px; height: 24px; background-color: var(--color-border);"></div>
+                    <button class="btn btn-icon" data-logout>
+                        <i data-lucide="log-out"></i>
+                    </button>
+                </div>
+            </header>
+            <div class="app-content">
+                <div class="page-header">
+                    <h2 data-i18n="navDiseaseDetection">Disease Detection</h2>
+                    <p class="text-muted">Upload a crop leaf photo for simulated demo analysis. This is not a real AI diagnosis.</p>
+                </div>
+
+                <!-- Upload Section -->
+                <div class="card" style="margin-bottom: var(--space-xl);">
+                    <h3 class="card-title">Upload Crop Image</h3>
+                    <div style="margin-top: var(--space-lg);">
+                        <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-describedby="uploadHelp uploadError">
+                            <i data-lucide="upload-cloud"></i>
+                            <p style="font-weight: 500; margin-bottom: var(--space-xs);">Click to upload or drag and drop</p>
+                            <p class="text-muted text-sm" id="uploadHelp">PNG or JPG up to 10MB</p>
+                            <input type="file" id="fileInput" accept="image/png,image/jpeg" style="display: none;">
+                        </div>
+                        <p class="form-error hidden" id="uploadError" aria-live="polite"></p>
+                        <div class="preview-container" id="previewContainer">
+                            <img id="previewImage" class="preview-image" alt="Preview">
+                            <div style="margin-top: var(--space-md); display: flex; gap: var(--space-sm);">
+                                <button class="btn btn-secondary btn-sm" id="changeImage">
+                                    <i data-lucide="upload"></i>
+                                    <span>Change Image</span>
+                                </button>
+                                <button class="btn btn-primary btn-sm" id="analyzeBtn" disabled>
+                                    <i data-lucide="search"></i>
+                                    <span>Analyze</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="card" id="resultsCard" style="display: none;">
+                    <h3 class="card-title">Analysis Results</h3>
+                    <div style="margin-top: var(--space-lg);">
+                        <div class="alert alert-warning">
+                            <i data-lucide="alert-triangle"></i>
+                            <div>
+                                <strong>Demo result: possible leaf blight pattern</strong>
+                                <p style="font-size: var(--font-size-sm); margin-top: 4px;">Simulated confidence estimate: 87%</p>
+                            </div>
+                        </div>
+                        <div style="margin-top: var(--space-lg);">
+                            <h4 style="font-size: var(--font-size-base); margin-bottom: var(--space-sm);">Demo care suggestions:</h4>
+                            <ul style="padding-left: var(--space-lg); color: var(--color-text-secondary);">
+                                <li style="margin-bottom: var(--space-xs);">Apply copper-based fungicide within 48 hours</li>
+                                <li style="margin-bottom: var(--space-xs);">Remove infected leaves and destroy them</li>
+                                <li style="margin-bottom: var(--space-xs);">Improve air circulation between plants</li>
+                                <li style="margin-bottom: var(--space-xs);">Avoid overhead irrigation</li>
+                            </ul>
+                        </div>
+                        <div style="margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid var(--color-border-subtle);">
+                            <p class="text-xs text-muted">Note: This is a simulated demo analysis, not a real AI diagnosis or verified agricultural advice. Consult a local agricultural expert for confirmation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        function updateMenuToggle() {
+            document.querySelector('[data-sidebar-toggle]').style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+        }
+        updateMenuToggle();
+        window.addEventListener('resize', updateMenuToggle);
+    </script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.Agriii.Session.requireAuth()) return;
+            document.querySelector('[data-language-toggle]').textContent = window.Agriii.Language.get() === 'en' ? 'EN' : 'HI';
+
+            const uploadZone = document.getElementById('uploadZone');
+            const fileInput = document.getElementById('fileInput');
+            const previewContainer = document.getElementById('previewContainer');
+            const previewImage = document.getElementById('previewImage');
+            const changeImage = document.getElementById('changeImage');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const resultsCard = document.getElementById('resultsCard');
+            const uploadError = document.getElementById('uploadError');
+            const maxFileSize = 10 * 1024 * 1024;
+            const allowedTypes = ['image/png', 'image/jpeg'];
+            let selectedFile = null;
+
+            function resetPreview() {
+                selectedFile = null;
+                previewImage.removeAttribute('src');
+                previewContainer.classList.remove('active');
+                uploadZone.style.display = 'block';
+                resultsCard.style.display = 'none';
+                analyzeBtn.disabled = true;
+            }
+
+            function showUploadError(message) {
+                uploadError.textContent = message;
+                uploadError.classList.remove('hidden');
+                window.Agriii.Toast.error(message, 'Disease Detection');
+                resetPreview();
+                fileInput.value = '';
+            }
+
+            function clearUploadError() {
+                uploadError.textContent = '';
+                uploadError.classList.add('hidden');
+            }
+
+            function validateFile(file) {
+                if (!file) return false;
+                if (!allowedTypes.includes(file.type)) {
+                    showUploadError('Please upload a PNG or JPG image file.');
+                    return false;
+                }
+                if (file.size > maxFileSize) {
+                    showUploadError('Image is larger than 10MB. Please choose a smaller file.');
+                    return false;
+                }
+                return true;
+            }
+
+            uploadZone.addEventListener('click', () => fileInput.click());
+            uploadZone.addEventListener('keydown', event => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    fileInput.click();
+                }
+            });
+            changeImage.addEventListener('click', () => fileInput.click());
+
+            uploadZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadZone.classList.add('dragover');
+            });
+            uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+            uploadZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadZone.classList.remove('dragover');
+                if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length) handleFile(e.target.files[0]);
+                else resetPreview();
+            });
+
+            function handleFile(file) {
+                clearUploadError();
+                resultsCard.style.display = 'none';
+                if (!validateFile(file)) return;
+                selectedFile = file;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImage.src = e.target.result;
+                    uploadZone.style.display = 'none';
+                    previewContainer.classList.add('active');
+                    analyzeBtn.disabled = false;
+                };
+                reader.onerror = () => showUploadError('Could not read the selected image.');
+                reader.readAsDataURL(file);
+            }
+
+            analyzeBtn.addEventListener('click', function() {
+                if (!selectedFile) {
+                    showUploadError('Please choose a valid image before analysis.');
+                    return;
+                }
+                resultsCard.style.display = 'none';
+                analyzeBtn.disabled = true;
+                window.Agriii.Toast.info('Running simulated demo analysis...', 'Disease Detection');
+                setTimeout(() => {
+                    resultsCard.style.display = 'block';
+                    analyzeBtn.disabled = false;
+                    window.Agriii.Toast.success('Demo analysis complete', 'Disease Detection');
+                    resultsCard.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+                }, 800);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="navSoilHealth">Soil Health - AgriProtect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header">
+                <img src="img/logo.jpeg" alt="AgriProtect Logo" class="sidebar-logo">
+                <div class="sidebar-brand" data-i18n="appName">AgriProtect</div>
+            </a>
+            <nav class="sidebar-nav">
+                <div class="nav-section-title" data-i18n="main">Main</div>
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="globe"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" data-i18n="navDashboard">
+                    <i data-lucide="home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <div class="nav-section-title" data-i18n="farmManagement">Farm Management</div>
+                <a href="soil-health.html" class="nav-item active" data-i18n="navSoilHealth">
+                    <i data-lucide="leaf"></i>
+                    <span>Soil Health</span>
+                </a>
+                <a href="weather.html" class="nav-item" data-i18n="navWeather">
+                    <i data-lucide="cloud-sun"></i>
+                    <span>Weather</span>
+                </a>
+                <a href="crop-calendar.html" class="nav-item" data-i18n="navCropCalendar">
+                    <i data-lucide="calendar"></i>
+                    <span>Crop Calendar</span>
+                </a>
+                <div class="nav-section-title" data-i18n="tools">Tools</div>
+                <a href="crop-advisor.html" class="nav-item" data-i18n="navCropAdvisor">
+                    <i data-lucide="sprout"></i>
+                    <span>Crop Advisor</span>
+                </a>
+                <a href="disease-detection.html" class="nav-item" data-i18n="navDiseaseDetection">
+                    <i data-lucide="microscope"></i>
+                    <span>Disease Detection</span>
+                </a>
+            </nav>
+            <div style="padding: var(--space-lg); border-top: 1px solid var(--color-border-subtle);">
+                <button class="nav-item" style="width: 100%; justify-content: flex-start;" data-logout>
+                    <i data-lucide="log-out"></i>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+        <div class="sidebar-overlay"></div>
+        <main class="app-main">
+            <header class="app-header">
+                <div class="flex items-center gap-md">
+                    <button class="btn btn-icon" data-sidebar-toggle style="display: none;">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1 class="page-title" data-i18n="navSoilHealth">Soil Health</h1>
+                </div>
+                <div class="flex items-center gap-sm">
+                    <button class="btn btn-icon" data-theme-toggle title="Toggle theme">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button class="btn btn-icon" data-language-toggle title="Toggle language">
+                        <span style="font-weight: 600;">EN</span>
+                    </button>
+                    <div style="width: 1px; height: 24px; background-color: var(--color-border);"></div>
+                    <button class="btn btn-icon" data-logout>
+                        <i data-lucide="log-out"></i>
+                    </button>
+                </div>
+            </header>
+            <div class="app-content">
+                <div class="page-header">
+                    <h2 data-i18n="navSoilHealth">Soil Health</h2>
+                    <button class="btn btn-secondary btn-sm" id="refreshBtn">
+                        <i data-lucide="rotate-cw"></i>
+                        <span>Refresh</span>
+                    </button>
+                </div>
+
+                <div class="dashboard-grid" style="margin-bottom: var(--space-xl);">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="droplet"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">68%</div>
+                        <div class="stat-label" data-i18n="soilMoisture">Soil Moisture</div>
+                        <div class="stat-change positive">
+                            <i data-lucide="arrow-up" style="width: 14px;"></i>
+                            <span>+5% today</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="beaker"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">7.2</div>
+                        <div class="stat-label" data-i18n="soilPH">Soil pH</div>
+                        <div class="text-xs text-muted">Neutral - Optimal</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="leaf"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">145</div>
+                        <div class="stat-label" data-i18n="nitrogen">Nitrogen (ppm)</div>
+                        <div class="text-xs text-muted">Good level</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">32</div>
+                        <div class="stat-label" data-i18n="phosphorus">Phosphorus (ppm)</div>
+                        <div class="text-xs text-muted">Moderate</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Soil Recommendations</h3>
+                    <div style="margin-top: var(--space-lg);">
+                        <div class="alert alert-success">
+                            <i data-lucide="check-circle"></i>
+                            <div>
+                                <strong>Moisture is optimal</strong>
+                                <p style="font-size: var(--font-size-sm); margin-top: 4px;">Continue current irrigation schedule</p>
+                            </div>
+                        </div>
+                        <div class="alert alert-warning">
+                            <i data-lucide="alert-triangle"></i>
+                            <div>
+                                <strong>Phosphorus needs attention</strong>
+                                <p style="font-size: var(--font-size-sm); margin-top: 4px;">Apply phosphorus fertilizer in next 2 weeks</p>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <i data-lucide="info"></i>
+                            <div>
+                                <strong>Next soil test due</strong>
+                                <p style="font-size: var(--font-size-sm); margin-top: 4px;">Schedule soil testing for next month</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        function updateMenuToggle() {
+            const toggle = document.querySelector('[data-sidebar-toggle]');
+            toggle.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+        }
+        updateMenuToggle();
+        window.addEventListener('resize', updateMenuToggle);
+    </script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.Agriii?.Session?.requireAuth()) return;
+            document.querySelector('[data-language-toggle]').textContent = window.Agriii?.Language?.get() === 'en' ? 'EN' : 'HI';
+            document.getElementById('refreshBtn').addEventListener('click', function() {
+                window.Agriii?.Toast?.info('Data refreshed', 'Soil Health');
+                setTimeout(() => location.reload(), 500);
+            });
+        });
+    </script>
+</body>
+</html>

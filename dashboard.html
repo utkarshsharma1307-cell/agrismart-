@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="navDashboard">Dashboard - AgriProtect</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- App Layout -->
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header">
+                <img src="img/logo.jpeg" alt="AgriProtect Logo" class="sidebar-logo">
+                <div class="sidebar-brand" data-i18n="appName">AgriProtect</div>
+            </a>
+
+            <nav class="sidebar-nav">
+                <!-- Main Navigation -->
+                <div class="nav-section-title" data-i18n="main">Main</div>
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="globe"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-item active" data-i18n="navDashboard">
+                    <i data-lucide="home"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <!-- Farm Management -->
+                <div class="nav-section-title" data-i18n="farmManagement">Farm Management</div>
+                <a href="soil-health.html" class="nav-item" data-i18n="navSoilHealth">
+                    <i data-lucide="leaf"></i>
+                    <span>Soil Health</span>
+                </a>
+                <a href="weather.html" class="nav-item" data-i18n="navWeather">
+                    <i data-lucide="cloud-sun"></i>
+                    <span>Weather</span>
+                </a>
+                <a href="crop-calendar.html" class="nav-item" data-i18n="navCropCalendar">
+                    <i data-lucide="calendar"></i>
+                    <span>Crop Calendar</span>
+                </a>
+
+                <!-- Decision Tools -->
+                <div class="nav-section-title" data-i18n="tools">Tools</div>
+                <a href="crop-advisor.html" class="nav-item" data-i18n="navCropAdvisor">
+                    <i data-lucide="sprout"></i>
+                    <span>Crop Advisor</span>
+                </a>
+                <a href="disease-detection.html" class="nav-item" data-i18n="navDiseaseDetection">
+                    <i data-lucide="microscope"></i>
+                    <span>Disease Detection</span>
+                </a>
+                <a href="farmer-finance.html" class="nav-item" data-i18n="navFarmerFinance">
+                    <i data-lucide="wallet"></i>
+                    <span>Farmer Finance</span>
+                </a>
+                <a href="voice-guide.html" class="nav-item" data-i18n="navVoiceGuide">
+                    <i data-lucide="mic"></i>
+                    <span>Voice Guide</span>
+                </a>
+                <a href="settings.html" class="nav-item" data-i18n="settings">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div style="padding: var(--space-lg); border-top: 1px solid var(--color-border-subtle);">
+                <button class="nav-item" style="width: 100%; justify-content: flex-start;" data-logout>
+                    <i data-lucide="log-out"></i>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content Area -->
+        <main class="app-main">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="flex items-center gap-md">
+                    <button class="btn btn-icon" data-sidebar-toggle style="display: none;">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1 class="page-title" data-i18n="navDashboard">Dashboard</h1>
+                </div>
+
+                <div class="flex items-center gap-sm">
+                    <a href="settings.html" class="btn btn-icon" data-settings-link title="Settings" aria-label="Settings">
+                        <i data-lucide="settings"></i>
+                    </a>
+                    <button class="btn btn-icon" data-theme-toggle title="Toggle theme">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button class="btn btn-icon" data-language-toggle title="Toggle language">
+                        <span style="font-weight: 600;">EN</span>
+                    </button>
+                    <div style="width: 1px; height: 24px; background-color: var(--color-border);"></div>
+                    <div class="flex items-center gap-sm">
+                        <div style="width: 36px; height: 36px; background-color: var(--color-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                            <span id="profileInitial">D</span>
+                        </div>
+                        <div>
+                            <div class="text-sm font-weight: 600;" id="profileName">Demo Farmer</div>
+                            <div class="text-xs text-muted" id="profilePhone">9876543210</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="app-content">
+                <!-- Welcome Section -->
+                <div style="margin-bottom: var(--space-xl);">
+                    <h2 class="text-2xl" data-i18n="welcomeBack">Welcome back</h2>
+                    <p class="text-muted" id="welcomeDate"></p>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="dashboard-grid" style="margin-bottom: var(--space-xl);">
+                    <!-- Farm Size Stat -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="square-m"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="farmSize">5</div>
+                        <div class="stat-label">Farm Size (acres)</div>
+                    </div>
+
+                    <!-- Primary Crop Stat -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="sprout"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">Rice</div>
+                        <div class="stat-label">Primary Crop</div>
+                    </div>
+
+                    <!-- Soil Health Stat -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="leaf"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value" style="font-size: var(--font-size-2xl);">Good</div>
+                        <div class="stat-label">Soil Health</div>
+                    </div>
+
+                    <!-- Weather Stat -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon">
+                                <i data-lucide="cloud-sun"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value" style="font-size: var(--font-size-2xl);">28°C</div>
+                        <div class="stat-label">Current Temp</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions Section -->
+                <div class="card" style="margin-bottom: var(--space-xl);">
+                    <h3 class="card-title" data-i18n="quickActions">Quick Actions</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg);">
+                        <a href="soil-health.html" class="card-minimal text-center" style="cursor: pointer; text-decoration: none; transition: all var(--transition-normal);">
+                            <div style="font-size: 24px; margin-bottom: var(--space-sm);">🌱</div>
+                            <div class="text-sm" data-i18n="navSoilHealth">Soil Health</div>
+                        </a>
+                        <a href="weather.html" class="card-minimal text-center" style="cursor: pointer; text-decoration: none; transition: all var(--transition-normal);">
+                            <div style="font-size: 24px; margin-bottom: var(--space-sm);">⛅</div>
+                            <div class="text-sm" data-i18n="navWeather">Weather</div>
+                        </a>
+                        <a href="crop-advisor.html" class="card-minimal text-center" style="cursor: pointer; text-decoration: none; transition: all var(--transition-normal);">
+                            <div style="font-size: 24px; margin-bottom: var(--space-sm);">🌾</div>
+                            <div class="text-sm" data-i18n="navCropAdvisor">Crop Advisor</div>
+                        </a>
+                        <a href="market-prices.html" class="card-minimal text-center" style="cursor: pointer; text-decoration: none; transition: all var(--transition-normal);">
+                            <div style="font-size: 24px; margin-bottom: var(--space-sm);">📊</div>
+                            <div class="text-sm" data-i18n="navMarketPrices">Market Prices</div>
+                        </a>
+                        <a href="expenses.html" class="card-minimal text-center" style="cursor: pointer; text-decoration: none; transition: all var(--transition-normal);">
+                            <div style="font-size: 24px; margin-bottom: var(--space-sm);">₹</div>
+                            <div class="text-sm" data-i18n="navExpenses">Expense Tracker</div>
+                        </a>
+                        <a href="assistant.html" class="card-minimal text-center" style="cursor: pointer; text-decoration: none; transition: all var(--transition-normal);">
+                            <div style="font-size: 24px; margin-bottom: var(--space-sm);">?</div>
+                            <div class="text-sm" data-i18n="navAssistant">Farm Assistant</div>
+                        </a>
+                        <a href="voice-guide.html" class="card-minimal text-center" style="cursor: pointer; text-decoration: none; transition: all var(--transition-normal);">
+                            <div style="font-size: 24px; margin-bottom: var(--space-sm);">🎙</div>
+                            <div class="text-sm" data-i18n="navVoiceGuide">Voice Guide</div>
+                        </a>
+                        <a href="farmer-finance.html" class="card-minimal text-center" style="cursor: pointer; text-decoration: none; transition: all var(--transition-normal);">
+                            <div style="font-size: 24px; margin-bottom: var(--space-sm);">₹</div>
+                            <div class="text-sm" data-i18n="navFarmerFinance">Farmer Finance</div>
+                        </a>
+                        <a href="settings.html" class="card-minimal text-center" style="cursor: pointer; text-decoration: none; transition: all var(--transition-normal);">
+                            <div style="font-size: 24px; margin-bottom: var(--space-sm);">⚙</div>
+                            <div class="text-sm" data-i18n="settings">Settings</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Upcoming Tasks Section -->
+                <div class="card">
+                    <h3 class="card-title" data-i18n="upcomingTasks">Upcoming Tasks</h3>
+                    <div style="margin-top: var(--space-lg);">
+                        <div class="flex items-center gap-md" style="padding: var(--space-md) 0; border-bottom: 1px solid var(--color-border-subtle);">
+                            <input type="checkbox" style="accent-color: var(--color-primary);">
+                            <div style="flex: 1;">
+                                <div class="text-sm font-weight: 600;">Water irrigation - Field A</div>
+                                <div class="text-xs text-muted">Today at 6:00 PM</div>
+                            </div>
+                            <span class="badge badge-warning">Today</span>
+                        </div>
+                        <div class="flex items-center gap-md" style="padding: var(--space-md) 0; border-bottom: 1px solid var(--color-border-subtle);">
+                            <input type="checkbox" style="accent-color: var(--color-primary);">
+                            <div style="flex: 1;">
+                                <div class="text-sm font-weight: 600;">Apply fertilizer - Rice crop</div>
+                                <div class="text-xs text-muted">Tomorrow at 8:00 AM</div>
+                            </div>
+                            <span class="badge badge-info">Tomorrow</span>
+                        </div>
+                        <div class="flex items-center gap-md" style="padding: var(--space-md) 0;">
+                            <input type="checkbox" style="accent-color: var(--color-primary);">
+                            <div style="flex: 1;">
+                                <div class="text-sm font-weight: 600;">Pest control - Check traps</div>
+                                <div class="text-xs text-muted">In 2 days</div>
+                            </div>
+                            <span class="badge badge-primary">Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        // Show menu toggle on small screens
+        function updateMenuToggle() {
+            const toggle = document.querySelector('[data-sidebar-toggle]');
+            toggle.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+        }
+        updateMenuToggle();
+        window.addEventListener('resize', updateMenuToggle);
+    </script>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (!window.Agriii.Session.requireAuth()) return;
+
+            // Load profile data
+            const session = window.Agriii.Session.get() || {};
+            const profile = window.Agriii.Profile.get();
+
+            // Update profile display
+            document.getElementById('profileName').textContent = session.name || 'Demo Farmer';
+            document.getElementById('profilePhone').textContent = session.phone || '9876543210';
+            const initial = (session.name && session.name.charAt(0)) || 'D';
+            document.getElementById('profileInitial').textContent = initial.toUpperCase();
+            document.getElementById('farmSize').textContent = profile.farmSize || '5';
+
+            // Update date
+            const today = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('welcomeDate').textContent = today.toLocaleDateString('en-IN', options);
+
+            // Mobile sidebar functionality
+            const sidebarToggle = document.querySelector('[data-sidebar-toggle]');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                    overlay.classList.toggle('open');
+                });
+            }
+
+            // Language toggle
+            document.querySelector('[data-language-toggle]').addEventListener('click', function() {
+                const lang = window.Agriii.Language.toggle();
+                this.textContent = lang === 'en' ? 'EN' : 'HI';
+            });
+
+            // Update language button text on load
+            const currentLang = window.Agriii.Language.get();
+            document.querySelector('[data-language-toggle]').textContent = currentLang === 'en' ? 'EN' : 'HI';
+        });
+    </script>
+</body>
+</html>

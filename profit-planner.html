@@ -1,0 +1,516 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="navProfitPlanner">Profit Planner - AgriProtect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" aria-label="Main navigation">
+            <a href="index.html" class="sidebar-header">
+                <img src="img/logo.jpeg" alt="AgriProtect logo" class="sidebar-logo">
+                <div class="sidebar-brand" data-i18n="appName">AgriProtect</div>
+            </a>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title" data-i18n="main">Main</div>
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="globe"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" data-i18n="navDashboard">
+                    <i data-lucide="home"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <div class="nav-section-title" data-i18n="farmManagement">Farm Management</div>
+                <a href="soil-health.html" class="nav-item" data-i18n="navSoilHealth">
+                    <i data-lucide="leaf"></i>
+                    <span>Soil Health</span>
+                </a>
+                <a href="weather.html" class="nav-item" data-i18n="navWeather">
+                    <i data-lucide="cloud-sun"></i>
+                    <span>Weather</span>
+                </a>
+                <a href="crop-calendar.html" class="nav-item" data-i18n="navCropCalendar">
+                    <i data-lucide="calendar"></i>
+                    <span>Crop Calendar</span>
+                </a>
+
+                <div class="nav-section-title" data-i18n="tools">Tools</div>
+                <a href="crop-advisor.html" class="nav-item" data-i18n="navCropAdvisor">
+                    <i data-lucide="sprout"></i>
+                    <span>Crop Advisor</span>
+                </a>
+                <a href="disease-detection.html" class="nav-item" data-i18n="navDiseaseDetection">
+                    <i data-lucide="microscope"></i>
+                    <span>Disease Detection</span>
+                </a>
+                <a href="market-prices.html" class="nav-item" data-i18n="navMarketPrices">
+                    <i data-lucide="trending-up"></i>
+                    <span>Market Prices</span>
+                </a>
+                <a href="profit-planner.html" class="nav-item active" aria-current="page" data-i18n="navProfitPlanner">
+                    <i data-lucide="calculator"></i>
+                    <span>Profit Planner</span>
+                </a>
+            </nav>
+
+            <div style="padding: var(--space-lg); border-top: 1px solid var(--color-border-subtle);">
+                <button class="nav-item" type="button" style="width: 100%; justify-content: flex-start;" data-logout>
+                    <i data-lucide="log-out"></i>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay" aria-hidden="true"></div>
+
+        <main class="app-main">
+            <header class="app-header">
+                <div class="flex items-center gap-md">
+                    <button class="btn btn-icon mobile-menu-trigger" type="button" data-sidebar-toggle aria-label="Open navigation">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1 class="page-title" data-i18n="navProfitPlanner">Profit Planner</h1>
+                </div>
+
+                <div class="flex items-center gap-sm">
+                    <button class="btn btn-icon" type="button" data-theme-toggle aria-label="Toggle colour theme" title="Toggle theme">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button class="btn btn-icon" type="button" data-language-toggle aria-label="Toggle language" title="Toggle language">
+                        <span id="languageLabel" style="font-weight: 600;">EN</span>
+                    </button>
+                    <div aria-hidden="true" style="width: 1px; height: 24px; background-color: var(--color-border);"></div>
+                    <button class="btn btn-icon" type="button" data-logout aria-label="Logout" title="Logout">
+                        <i data-lucide="log-out"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="app-content">
+                <h1 class="print-report-title">AgriProtect Profit Planner Report</h1>
+                <div class="page-header">
+                    <div>
+                        <h2 data-i18n="navProfitPlanner">Profit Planner</h2>
+                        <p class="text-muted text-sm">Estimate crop returns, costs, and your break-even point. All figures are local demo estimates.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary btn-sm no-print" type="button" id="printPlanner">
+                            <i data-lucide="printer"></i>
+                            <span>Print report</span>
+                        </button>
+                        <button class="btn btn-secondary btn-sm no-print" type="button" id="resetPlanner">
+                            <i data-lucide="rotate-ccw"></i>
+                            <span>Reset preset</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="planner-layout">
+                    <section class="card" aria-labelledby="plannerInputTitle">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title" id="plannerInputTitle">Crop plan</h3>
+                                <p class="card-subtitle">Choose a crop preset, then adjust your farm assumptions.</p>
+                            </div>
+                            <span class="badge badge-info">Local demo</span>
+                        </div>
+
+                        <form id="profitPlannerForm" novalidate>
+                            <div class="planner-form-grid">
+                                <div class="form-group">
+                                    <label class="form-label" for="cropPreset">Crop preset</label>
+                                    <select class="form-select" id="cropPreset" name="cropPreset">
+                                        <option value="rice">Rice</option>
+                                        <option value="wheat">Wheat</option>
+                                        <option value="cotton">Cotton</option>
+                                        <option value="sugarcane">Sugarcane</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="areaUnit">Farm area unit</label>
+                                    <select class="form-select" id="areaUnit" name="areaUnit">
+                                        <option value="acres">Acres</option>
+                                        <option value="hectares">Hectares</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="areaValue">Farm area</label>
+                                    <input class="form-input" id="areaValue" name="areaValue" type="number" min="0.01" step="0.01" inputmode="decimal" required>
+                                    <span class="form-help" id="areaHelp">Enter the area you plan to cultivate.</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="yieldPerUnit">Expected yield</label>
+                                    <div class="planner-field-pair">
+                                        <input class="form-input" id="yieldPerUnit" name="yieldPerUnit" type="number" min="0" step="0.01" inputmode="decimal" required>
+                                        <span class="form-input" id="yieldUnit" aria-live="polite">quintal / acre</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="grid-column: 1 / -1;">
+                                    <label class="form-label" for="sellingPrice">Expected selling price</label>
+                                    <div class="planner-field-pair">
+                                        <input class="form-input" id="sellingPrice" name="sellingPrice" type="number" min="0" step="1" inputmode="decimal" required>
+                                        <span class="form-input">₹ / quintal</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-border-subtle);">
+                                <h4 class="planner-section-title">Estimated costs</h4>
+                                <p class="planner-section-copy">Enter total costs for the whole farm area, not per acre or hectare.</p>
+
+                                <div class="planner-cost-grid">
+                                    <div class="form-group">
+                                        <label class="form-label" for="costSeeds">Seeds (₹)</label>
+                                        <input class="form-input planner-cost-input" id="costSeeds" name="costSeeds" type="number" min="0" step="1" inputmode="decimal" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="costFertilizer">Fertilizer (₹)</label>
+                                        <input class="form-input planner-cost-input" id="costFertilizer" name="costFertilizer" type="number" min="0" step="1" inputmode="decimal" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="costPesticide">Pesticide (₹)</label>
+                                        <input class="form-input planner-cost-input" id="costPesticide" name="costPesticide" type="number" min="0" step="1" inputmode="decimal" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="costIrrigation">Irrigation (₹)</label>
+                                        <input class="form-input planner-cost-input" id="costIrrigation" name="costIrrigation" type="number" min="0" step="1" inputmode="decimal" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="costLabour">Labour (₹)</label>
+                                        <input class="form-input planner-cost-input" id="costLabour" name="costLabour" type="number" min="0" step="1" inputmode="decimal" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="costMachinery">Machinery (₹)</label>
+                                        <input class="form-input planner-cost-input" id="costMachinery" name="costMachinery" type="number" min="0" step="1" inputmode="decimal" required>
+                                    </div>
+                                    <div class="form-group" style="grid-column: 1 / -1;">
+                                        <label class="form-label" for="costOther">Other costs (₹)</label>
+                                        <input class="form-input planner-cost-input" id="costOther" name="costOther" type="number" min="0" step="1" inputmode="decimal" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+
+                    <aside class="card planner-results-card" aria-labelledby="plannerResultTitle">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title" id="plannerResultTitle">Estimated outcome</h3>
+                                <p class="card-subtitle" id="plannerCropSummary">Rice • 0 acres</p>
+                            </div>
+                            <i data-lucide="badge-indian-rupee" aria-hidden="true" style="color: var(--color-primary);"></i>
+                        </div>
+
+                        <div class="planner-output-grid">
+                            <div class="planner-output" id="netOutcomeCard" data-result-state="neutral">
+                                <div class="planner-output-label">Net profit / loss</div>
+                                <div class="planner-output-value" id="netOutcome">₹0</div>
+                                <div class="planner-output-meta" id="profitPerUnit">₹0 per acre</div>
+                            </div>
+                            <div class="planner-output" data-result-state="neutral">
+                                <div class="planner-output-label">Break-even price</div>
+                                <div class="planner-output-value" id="breakEvenPrice">₹0</div>
+                                <div class="planner-output-meta">per quintal</div>
+                            </div>
+                            <div class="planner-output" data-result-state="neutral">
+                                <div class="planner-output-label">Break-even yield</div>
+                                <div class="planner-output-value" id="breakEvenYield">0</div>
+                                <div class="planner-output-meta" id="breakEvenYieldMeta">quintal / acre</div>
+                            </div>
+                        </div>
+
+                        <div class="planner-summary">
+                            <div class="planner-summary-row">
+                                <span>Total expected yield</span>
+                                <strong id="totalYield">0 quintal</strong>
+                            </div>
+                            <div class="planner-summary-row">
+                                <span>Gross revenue</span>
+                                <strong id="grossRevenue">₹0</strong>
+                            </div>
+                            <div class="planner-summary-row">
+                                <span>Total estimated cost</span>
+                                <strong id="totalCost">₹0</strong>
+                            </div>
+                        </div>
+
+                        <p class="planner-status" id="plannerStatus" role="status" aria-live="polite"></p>
+                    </aside>
+                </div>
+
+                <section class="card" style="margin-top: var(--space-lg);" aria-labelledby="costBreakdownTitle">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title" id="costBreakdownTitle">Cost breakdown</h3>
+                            <p class="card-subtitle">Your input costs by category.</p>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Category</th>
+                                    <th scope="col" style="text-align: right;">Amount</th>
+                                    <th scope="col" style="text-align: right;">Share of costs</th>
+                                </tr>
+                            </thead>
+                            <tbody id="costBreakdownBody"></tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-muted" style="margin-top: var(--space-md); margin-bottom: 0;">Demo estimates only. Actual crop yield, expenses, and mandi prices can vary.</p>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.Agriii?.Session?.requireAuth()) return;
+
+            const { Storage, Toast, Utils, Language } = window.Agriii;
+            const storageKey = 'profitPlanner';
+            const cropPresets = {
+                rice: {
+                    label: 'Rice',
+                    areaValue: 5,
+                    areaUnit: 'acres',
+                    yieldPerUnit: 32,
+                    sellingPrice: 2400,
+                    costs: { seeds: 7000, fertilizer: 13500, pesticide: 6000, irrigation: 8000, labour: 26000, machinery: 11000, other: 4500 }
+                },
+                wheat: {
+                    label: 'Wheat',
+                    areaValue: 5,
+                    areaUnit: 'acres',
+                    yieldPerUnit: 25,
+                    sellingPrice: 2280,
+                    costs: { seeds: 6500, fertilizer: 11000, pesticide: 4500, irrigation: 7000, labour: 21000, machinery: 9000, other: 3500 }
+                },
+                cotton: {
+                    label: 'Cotton',
+                    areaValue: 5,
+                    areaUnit: 'acres',
+                    yieldPerUnit: 9,
+                    sellingPrice: 7100,
+                    costs: { seeds: 8000, fertilizer: 12500, pesticide: 15000, irrigation: 8500, labour: 30000, machinery: 11500, other: 5000 }
+                },
+                sugarcane: {
+                    label: 'Sugarcane',
+                    areaValue: 5,
+                    areaUnit: 'acres',
+                    yieldPerUnit: 350,
+                    sellingPrice: 325,
+                    costs: { seeds: 12000, fertilizer: 19000, pesticide: 6500, irrigation: 18000, labour: 45000, machinery: 19000, other: 7500 }
+                }
+            };
+
+            const costFields = ['seeds', 'fertilizer', 'pesticide', 'irrigation', 'labour', 'machinery', 'other'];
+            const costLabels = {
+                seeds: 'Seeds',
+                fertilizer: 'Fertilizer',
+                pesticide: 'Pesticide',
+                irrigation: 'Irrigation',
+                labour: 'Labour',
+                machinery: 'Machinery',
+                other: 'Other costs'
+            };
+            const form = document.getElementById('profitPlannerForm');
+            const cropPreset = document.getElementById('cropPreset');
+            const areaValue = document.getElementById('areaValue');
+            const areaUnit = document.getElementById('areaUnit');
+            const yieldPerUnit = document.getElementById('yieldPerUnit');
+            const sellingPrice = document.getElementById('sellingPrice');
+            const yieldUnit = document.getElementById('yieldUnit');
+            const languageLabel = document.getElementById('languageLabel');
+            let saveTimer;
+
+            function clonePreset(key) {
+                const preset = cropPresets[key] || cropPresets.rice;
+                return {
+                    cropPreset: key in cropPresets ? key : 'rice',
+                    areaValue: preset.areaValue,
+                    areaUnit: preset.areaUnit,
+                    yieldPerUnit: preset.yieldPerUnit,
+                    sellingPrice: preset.sellingPrice,
+                    costs: { ...preset.costs }
+                };
+            }
+
+            function numberValue(value) {
+                const parsed = Number.parseFloat(value);
+                return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
+            }
+
+            function formatQuantity(value, maxFractionDigits) {
+                return new Intl.NumberFormat('en-IN', {
+                    maximumFractionDigits: maxFractionDigits,
+                    minimumFractionDigits: 0
+                }).format(value);
+            }
+
+            function getStateFromForm() {
+                const costs = {};
+                costFields.forEach(function (key) {
+                    costs[key] = numberValue(document.getElementById('cost' + key.charAt(0).toUpperCase() + key.slice(1)).value);
+                });
+
+                return {
+                    cropPreset: cropPreset.value,
+                    areaValue: numberValue(areaValue.value),
+                    areaUnit: areaUnit.value === 'hectares' ? 'hectares' : 'acres',
+                    yieldPerUnit: numberValue(yieldPerUnit.value),
+                    sellingPrice: numberValue(sellingPrice.value),
+                    costs: costs
+                };
+            }
+
+            function applyState(state) {
+                const safeState = state && cropPresets[state.cropPreset] ? state : clonePreset('rice');
+                cropPreset.value = safeState.cropPreset;
+                areaValue.value = safeState.areaValue;
+                areaUnit.value = safeState.areaUnit === 'hectares' ? 'hectares' : 'acres';
+                yieldPerUnit.value = safeState.yieldPerUnit;
+                sellingPrice.value = safeState.sellingPrice;
+                costFields.forEach(function (key) {
+                    const input = document.getElementById('cost' + key.charAt(0).toUpperCase() + key.slice(1));
+                    input.value = numberValue(safeState.costs && safeState.costs[key]);
+                });
+                updateUnitLabels();
+            }
+
+            function updateUnitLabels() {
+                const unit = areaUnit.value === 'hectares' ? 'hectare' : 'acre';
+                yieldUnit.textContent = 'quintal / ' + unit;
+                document.getElementById('breakEvenYieldMeta').textContent = 'quintal / ' + unit;
+            }
+
+            function scheduleSave(state) {
+                window.clearTimeout(saveTimer);
+                saveTimer = window.setTimeout(function () {
+                    Storage.set(storageKey, state);
+                    document.getElementById('plannerStatus').textContent = 'Saved locally in this browser.';
+                }, 250);
+            }
+
+            function renderBreakdown(costs, totalCost) {
+                const body = document.getElementById('costBreakdownBody');
+                body.innerHTML = costFields.map(function (key) {
+                    const amount = costs[key];
+                    const share = totalCost > 0 ? (amount / totalCost) * 100 : 0;
+                    return '<tr>' +
+                        '<td class="planner-cost-name">' + costLabels[key] + '</td>' +
+                        '<td class="planner-cost-amount">' + Utils.formatCurrency(amount) + '</td>' +
+                        '<td class="planner-cost-share">' + formatQuantity(share, 1) + '%</td>' +
+                    '</tr>';
+                }).join('');
+            }
+
+            function calculateAndRender(options) {
+                const state = getStateFromForm();
+                const unitLabel = state.areaUnit === 'hectares' ? 'hectare' : 'acre';
+                const preset = cropPresets[state.cropPreset];
+                const totalCost = costFields.reduce(function (sum, key) { return sum + state.costs[key]; }, 0);
+                const totalYield = state.areaValue * state.yieldPerUnit;
+                const revenue = totalYield * state.sellingPrice;
+                const netOutcome = revenue - totalCost;
+                const profitPerUnit = state.areaValue > 0 ? netOutcome / state.areaValue : 0;
+                const breakEvenPrice = totalYield > 0 ? totalCost / totalYield : 0;
+                const breakEvenYield = state.areaValue > 0 && state.sellingPrice > 0
+                    ? totalCost / (state.areaValue * state.sellingPrice)
+                    : 0;
+                const outputState = netOutcome > 0 ? 'profit' : (netOutcome < 0 ? 'loss' : 'neutral');
+
+                document.getElementById('plannerCropSummary').textContent = preset.label + ' • ' + formatQuantity(state.areaValue, 2) + ' ' + state.areaUnit;
+                document.getElementById('netOutcome').textContent = Utils.formatCurrency(netOutcome);
+                document.getElementById('profitPerUnit').textContent = Utils.formatCurrency(profitPerUnit) + ' per ' + unitLabel;
+                document.getElementById('breakEvenPrice').textContent = Utils.formatCurrency(breakEvenPrice);
+                document.getElementById('breakEvenYield').textContent = formatQuantity(breakEvenYield, 2);
+                document.getElementById('totalYield').textContent = formatQuantity(totalYield, 2) + ' quintal';
+                document.getElementById('grossRevenue').textContent = Utils.formatCurrency(revenue);
+                document.getElementById('totalCost').textContent = Utils.formatCurrency(totalCost);
+                document.getElementById('netOutcomeCard').setAttribute('data-result-state', outputState);
+
+                renderBreakdown(state.costs, totalCost);
+
+                if (state.areaValue === 0 || state.yieldPerUnit === 0 || state.sellingPrice === 0) {
+                    document.getElementById('plannerStatus').textContent = 'Add farm area, yield, and selling price to calculate a complete estimate.';
+                } else if (!options || !options.skipSave) {
+                    scheduleSave(state);
+                }
+            }
+
+            function loadInitialState() {
+                const saved = Storage.get(storageKey);
+                if (saved && cropPresets[saved.cropPreset]) {
+                    return {
+                        cropPreset: saved.cropPreset,
+                        areaValue: numberValue(saved.areaValue),
+                        areaUnit: saved.areaUnit === 'hectares' ? 'hectares' : 'acres',
+                        yieldPerUnit: numberValue(saved.yieldPerUnit),
+                        sellingPrice: numberValue(saved.sellingPrice),
+                        costs: { ...clonePreset(saved.cropPreset).costs, ...(saved.costs || {}) }
+                    };
+                }
+                return clonePreset('rice');
+            }
+
+            cropPreset.addEventListener('change', function () {
+                applyState(clonePreset(cropPreset.value));
+                calculateAndRender();
+                Toast.info('Preset values loaded. Adjust them for your farm.', 'Profit Planner');
+            });
+
+            areaUnit.addEventListener('change', function () {
+                updateUnitLabels();
+                calculateAndRender();
+            });
+
+            form.addEventListener('input', function () {
+                calculateAndRender();
+            });
+
+            document.getElementById('printPlanner').addEventListener('click', function () {
+                window.print();
+            });
+
+            document.getElementById('resetPlanner').addEventListener('click', function () {
+                const cropName = cropPresets[cropPreset.value].label;
+                if (!window.confirm('Restore the original ' + cropName + ' demo values? Your saved planner values will be replaced.')) return;
+                applyState(clonePreset(cropPreset.value));
+                const state = getStateFromForm();
+                Storage.set(storageKey, state);
+                calculateAndRender({ skipSave: true });
+                document.getElementById('plannerStatus').textContent = cropName + ' demo values restored.';
+                Toast.success('Planner preset restored.', 'Profit Planner');
+            });
+
+            document.querySelector('[data-language-toggle]').addEventListener('click', function () {
+                const lang = Language.toggle();
+                window.setTimeout(updateLanguageLabel, 0);
+            });
+
+            function updateLanguageLabel() {
+                languageLabel.textContent = Language.get() === 'en' ? 'EN' : 'HI';
+            }
+
+            applyState(loadInitialState());
+            updateLanguageLabel();
+            calculateAndRender({ skipSave: true });
+        });
+    </script>
+</body>
+</html>

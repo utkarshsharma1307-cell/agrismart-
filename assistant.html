@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="navAssistant">Farm Assistant - AgriProtect</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- App Layout -->
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header">
+                <img src="img/logo.jpeg" alt="AgriProtect Logo" class="sidebar-logo">
+                <div class="sidebar-brand" data-i18n="appName">AgriProtect</div>
+            </a>
+
+            <nav class="sidebar-nav">
+                <!-- Main Navigation -->
+                <div class="nav-section-title" data-i18n="main">Main</div>
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="globe"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" data-i18n="navDashboard">
+                    <i data-lucide="home"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <!-- Farm Management -->
+                <div class="nav-section-title" data-i18n="farmManagement">Farm Management</div>
+                <a href="soil-health.html" class="nav-item" data-i18n="navSoilHealth">
+                    <i data-lucide="leaf"></i>
+                    <span>Soil Health</span>
+                </a>
+                <a href="weather.html" class="nav-item" data-i18n="navWeather">
+                    <i data-lucide="cloud-sun"></i>
+                    <span>Weather</span>
+                </a>
+                <a href="crop-calendar.html" class="nav-item" data-i18n="navCropCalendar">
+                    <i data-lucide="calendar"></i>
+                    <span>Crop Calendar</span>
+                </a>
+
+                <!-- Decision Tools -->
+                <div class="nav-section-title" data-i18n="tools">Tools</div>
+                <a href="crop-advisor.html" class="nav-item" data-i18n="navCropAdvisor">
+                    <i data-lucide="sprout"></i>
+                    <span>Crop Advisor</span>
+                </a>
+                <a href="disease-detection.html" class="nav-item" data-i18n="navDiseaseDetection">
+                    <i data-lucide="microscope"></i>
+                    <span>Disease Detection</span>
+                </a>
+                <a href="assistant.html" class="nav-item active" data-i18n="navAssistant">
+                    <i data-lucide="bot"></i>
+                    <span>Farm Assistant</span>
+                </a>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div style="padding: var(--space-lg); border-top: 1px solid var(--color-border-subtle);">
+                <button class="nav-item" style="width: 100%; justify-content: flex-start;" data-logout>
+                    <i data-lucide="log-out"></i>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content Area -->
+        <main class="app-main">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="flex items-center gap-md">
+                    <button class="btn btn-icon mobile-menu-trigger" data-sidebar-toggle style="display: none;">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1 class="page-title" data-i18n="navAssistant">Farm Assistant</h1>
+                </div>
+
+                <div class="flex items-center gap-sm">
+                    <button class="btn btn-icon" data-theme-toggle title="Toggle theme">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button class="btn btn-icon" data-language-toggle title="Toggle language">
+                        <span style="font-weight: 600;">EN</span>
+                    </button>
+                    <button class="btn btn-icon" id="voiceWidgetToggle" title="Voice Assistant">
+                        <i data-lucide="mic"></i>
+                    </button>
+                    <div style="width: 1px; height: 24px; background-color: var(--color-border);"></div>
+                    <div class="flex items-center gap-sm">
+                        <div style="width: 36px; height: 36px; background-color: var(--color-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                            <span id="profileInitial">D</span>
+                        </div>
+                        <div>
+                            <div class="text-sm font-weight: 600;" id="profileName">Demo Farmer</div>
+                            <div class="text-xs text-muted" id="profilePhone">9876543210</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Assistant Content -->
+            <div class="app-content">
+                <!-- Command Center Grid -->
+                <div class="assistant-command-center">
+                    <!-- Left Panel: Briefing & Context -->
+                    <div class="assistant-sidebar">
+                        <!-- Daily Briefing -->
+                        <section class="assistant-card assistant-briefing">
+                            <div class="assistant-card-header">
+                                <h3 class="assistant-card-title">
+                                    <i data-lucide="sun"></i>
+                                    <span data-i18n="dailyBriefing">Daily Briefing</span>
+                                </h3>
+                            </div>
+                            <div class="assistant-briefing-metrics">
+                                <div class="briefing-metric">
+                                    <span class="briefing-metric-value" id="briefingTemp">28°C</span>
+                                    <span class="briefing-metric-label" data-i18n="temperature">Temperature</span>
+                                </div>
+                                <div class="briefing-metric">
+                                    <span class="briefing-metric-value" id="briefingHumidity">65%</span>
+                                    <span class="briefing-metric-label" data-i18n="humidity">Humidity</span>
+                                </div>
+                                <div class="briefing-metric">
+                                    <span class="briefing-metric-value" id="briefingTasks">3</span>
+                                    <span class="briefing-metric-label" data-i18n="tasksPending">Tasks</span>
+                                </div>
+                            </div>
+                            <p class="assistant-briefing-note text-sm text-muted" data-i18n="demoDataNote">
+                                Demo data - not live weather or tasks
+                            </p>
+                        </section>
+
+                        <!-- Priority Actions -->
+                        <section class="assistant-card assistant-priority">
+                            <div class="assistant-card-header">
+                                <h3 class="assistant-card-title">
+                                    <i data-lucide="alert-circle"></i>
+                                    <span data-i18n="priorityActions">Priority Actions</span>
+                                </h3>
+                            </div>
+                            <ul class="priority-list" id="priorityList">
+                                <li class="priority-item">
+                                    <span class="priority-icon" style="color: var(--color-warning);">
+                                        <i data-lucide="droplets"></i>
+                                    </span>
+                                    <span class="priority-text" data-i18n="irrigationTip">Check soil moisture - consider irrigation</span>
+                                </li>
+                                <li class="priority-item">
+                                    <span class="priority-icon" style="color: var(--color-info);">
+                                        <i data-lucide="calendar"></i>
+                                    </span>
+                                    <span class="priority-text" data-i18n="fertilizerTip">Apply fertilizer in 2 days</span>
+                                </li>
+                                <li class="priority-item">
+                                    <span class="priority-icon" style="color: var(--color-primary);">
+                                        <i data-lucide="bug"></i>
+                                    </span>
+                                    <span class="priority-text" data-i18n="pestCheck">Weekly pest scouting recommended</span>
+                                </li>
+                            </ul>
+                        </section>
+
+                        <!-- Farm Context -->
+                        <section class="assistant-card assistant-context">
+                            <div class="assistant-card-header">
+                                <h3 class="assistant-card-title">
+                                    <i data-lucide="map-pin"></i>
+                                    <span data-i18n="farmContext">Farm Context</span>
+                                </h3>
+                            </div>
+                            <div class="context-grid">
+                                <div class="context-item">
+                                    <span class="context-label" data-i18n="farmSize">Farm Size</span>
+                                    <span class="context-value" id="contextFarmSize">5 acres</span>
+                                </div>
+                                <div class="context-item">
+                                    <span class="context-label" data-i18n="primaryCrop">Primary Crop</span>
+                                    <span class="context-value" id="contextCrop">Rice</span>
+                                </div>
+                                <div class="context-item">
+                                    <span class="context-label" data-i18n="soilType">Soil Type</span>
+                                    <span class="context-value" id="contextSoil">Alluvial</span>
+                                </div>
+                                <div class="context-item">
+                                    <span class="context-label" data-i18n="irrigation">Irrigation</span>
+                                    <span class="context-value" id="contextIrrigation">Canal</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Category Pills -->
+                        <section class="assistant-categories" aria-label="Quick prompt categories">
+                            <button type="button" class="category-pill active" data-category="all" data-i18n="all" aria-pressed="true">All</button>
+                            <button type="button" class="category-pill" data-category="crop" data-i18n="crops" aria-pressed="false">Crops</button>
+                            <button type="button" class="category-pill" data-category="soil" data-i18n="soil" aria-pressed="false">Soil</button>
+                            <button type="button" class="category-pill" data-category="water" data-i18n="water" aria-pressed="false">Water</button>
+                            <button type="button" class="category-pill" data-category="pest" data-i18n="pests" aria-pressed="false">Pests</button>
+                            <button type="button" class="category-pill" data-category="market" data-i18n="market" aria-pressed="false">Market</button>
+                        </section>
+                    </div>
+
+                    <!-- Center: Chat Workspace -->
+                    <div class="assistant-workspace">
+                        <!-- Chat Header -->
+                        <div class="assistant-chat-header">
+                            <h2 data-i18n="chatWithAssistant">Chat with Assistant</h2>
+                            <button class="btn btn-secondary btn-sm" id="clearChat" title="Clear conversation">
+                                <i data-lucide="trash-2"></i>
+                                <span data-i18n="clearChat">Clear</span>
+                            </button>
+                        </div>
+
+                        <!-- Messages Container -->
+                        <div class="assistant-chat-messages" id="chatMessages">
+                            <!-- Welcome Message -->
+                            <div class="message message-bot">
+                                <div class="message-avatar">
+                                    <i data-lucide="bot"></i>
+                                </div>
+                                <div class="message-content">
+                                    <div class="message-text" id="welcomeMessage">
+                                        Welcome! I am your local demo farming assistant. I can help with soil, weather, crops, irrigation, fertilizer, pests, diseases, market prices, and profit planning. Ask a question in English or Hindi.
+                                    </div>
+                                    <div class="message-time"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Typing Indicator -->
+                        <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                            <div class="message message-bot">
+                                <div class="message-avatar">
+                                    <i data-lucide="bot"></i>
+                                </div>
+                                <div class="message-content">
+                                    <div class="typing-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Prompts -->
+                        <div class="quick-prompts" id="quickPrompts" aria-live="polite">
+                            <button type="button" class="quick-prompt" data-category="water" data-prompt="How should I plan irrigation?">
+                                <i data-lucide="droplets"></i>
+                                <span data-i18n="irrigationHelp">Irrigation help</span>
+                            </button>
+                            <button type="button" class="quick-prompt" data-category="crop soil" data-prompt="How much fertilizer should I use?">
+                                <i data-lucide="sprout"></i>
+                                <span data-i18n="fertilizerGuide">Fertilizer guide</span>
+                            </button>
+                            <button type="button" class="quick-prompt" data-category="crop pest" data-prompt="What should I do about a crop disease?">
+                                <i data-lucide="leaf"></i>
+                                <span data-i18n="diseaseHelp">Disease help</span>
+                            </button>
+                            <button type="button" class="quick-prompt" data-category="market" data-prompt="How do I check my profit?">
+                                <i data-lucide="calculator"></i>
+                                <span data-i18n="profitCheck">Profit check</span>
+                            </button>
+                            <p class="quick-prompts-empty text-sm text-muted" id="quickPromptEmpty" hidden>No quick prompts in this category yet.</p>
+                        </div>
+
+                        <!-- Chat Input -->
+                        <form class="assistant-chat-form" id="chatForm">
+                            <div class="chat-input-wrapper">
+                                <label class="sr-only" for="chatInput" data-i18n="askAssistant">Ask the farm assistant</label>
+                                <textarea
+                                    id="chatInput"
+                                    class="form-input"
+                                    placeholder="Ask about soil, weather, crops, or profit..."
+                                    rows="1"
+                                    data-i18n-placeholder="askPlaceholder"
+                                ></textarea>
+                                <button class="btn btn-primary btn-icon chat-send-btn" type="submit" aria-label="Send">
+                                    <i data-lucide="send"></i>
+                                </button>
+                            </div>
+                            <div class="chat-input-actions">
+                                <button class="btn btn-secondary btn-sm" type="button" id="voiceInputBtn" title="Speak your question">
+                                    <i data-lucide="mic"></i>
+                                    <span data-i18n="speak">Speak</span>
+                                </button>
+                                <button class="btn btn-secondary btn-sm" type="button" id="speakResponseBtn" title="Read last response">
+                                    <i data-lucide="volume-2"></i>
+                                    <span data-i18n="listen">Listen</span>
+                                </button>
+                                <select class="form-select form-select-sm" id="assistantLanguage" style="width: auto;">
+                                    <option value="en">English</option>
+                                    <option value="hi">हिंदी</option>
+                                </select>
+                            </div>
+                        </form>
+
+                        <!-- Voice Status -->
+                        <div class="voice-status-bar" id="voiceStatusBar" style="display: none;">
+                            <div class="voice-status-indicator" id="voiceIndicator"></div>
+                            <span class="voice-status-text" id="voiceStatusText">Listening...</span>
+                            <button class="btn btn-icon btn-sm" id="cancelVoiceBtn" title="Cancel">
+                                <i data-lucide="x"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Panel: Insights -->
+                    <div class="assistant-insights">
+                        <section class="assistant-card">
+                            <div class="assistant-card-header">
+                                <h3 class="assistant-card-title">
+                                    <i data-lucide="lightbulb"></i>
+                                    <span data-i18n="insights">Insights</span>
+                                </h3>
+                            </div>
+                            <div class="insights-list" id="insightsList">
+                                <div class="insight-card">
+                                    <div class="insight-icon" style="background-color: var(--color-success-light);">
+                                        <i data-lucide="sprout"></i>
+                                    </div>
+                                    <div class="insight-content">
+                                        <h4 data-i18n="cropSeasonTitle">Crop Season Active</h4>
+                                        <p class="text-sm text-muted" data-i18n="cropSeasonTip">Kharif season ideal for rice cultivation. Monitor water levels closely.</p>
+                                    </div>
+                                </div>
+                                <div class="insight-card">
+                                    <div class="insight-icon" style="background-color: var(--color-warning-light);">
+                                        <i data-lucide="droplets"></i>
+                                    </div>
+                                    <div class="insight-content">
+                                        <h4 data-i18n="irrigationTitle">Irrigation Alert</h4>
+                                        <p class="text-sm text-muted" data-i18n="irrigationTip2">Check field A moisture levels. Consider early morning irrigation.</p>
+                                    </div>
+                                </div>
+                                <div class="insight-card">
+                                    <div class="insight-icon" style="background-color: var(--color-info-light);">
+                                        <i data-lucide="trending-up"></i>
+                                    </div>
+                                    <div class="insight-content">
+                                        <h4 data-i18n="marketTitle">Market Update</h4>
+                                        <p class="text-sm text-muted" data-i18n="marketTip">Rice prices stable. Consider selling excess stock this week.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Photo Diagnosis Link -->
+                        <section class="assistant-card">
+                            <div class="assistant-card-header">
+                                <h3 class="assistant-card-title">
+                                    <i data-lucide="camera"></i>
+                                    <span data-i18n="photoDiagnosis">Photo Diagnosis</span>
+                                </h3>
+                            </div>
+                            <p class="text-sm text-muted" style="margin-bottom: var(--space-md);" data-i18n="photoDiagnosisDesc">
+                                Upload a clear photo of affected plant parts for local demo analysis.
+                            </p>
+                            <a href="disease-detection.html" class="btn btn-secondary" style="width: 100%;">
+                                <i data-lucide="upload"></i>
+                                <span data-i18n="uploadPhoto">Upload Photo</span>
+                            </a>
+                        </section>
+
+                        <!-- Voice Commands Help -->
+                        <section class="assistant-card voice-commands-card">
+                            <div class="assistant-card-header">
+                                <h3 class="assistant-card-title">
+                                    <i data-lucide="mic"></i>
+                                    <span data-i18n="voiceCommands">Voice Commands</span>
+                                </h3>
+                            </div>
+                            <div class="voice-commands-list">
+                                <div class="voice-command-item">
+                                    <code>soil</code>
+                                    <span data-i18n="cmdSoil">→ Open soil health</span>
+                                </div>
+                                <div class="voice-command-item">
+                                    <code>weather</code>
+                                    <span data-i18n="cmdWeather">→ Open weather</span>
+                                </div>
+                                <div class="voice-command-item">
+                                    <code>crop</code>
+                                    <span data-i18n="cmdCrop">→ Crop advisor</span>
+                                </div>
+                                <div class="voice-command-item">
+                                    <code>disease</code>
+                                    <span data-i18n="cmdDisease">→ Disease detection</span>
+                                </div>
+                                <div class="voice-command-item">
+                                    <code>market</code>
+                                    <span data-i18n="cmdMarket">→ Market prices</span>
+                                </div>
+                                <div class="voice-command-item">
+                                    <code>profit</code>
+                                    <span data-i18n="cmdProfit">→ Profit planner</span>
+                                </div>
+                                <div class="voice-command-item">
+                                    <code>dark mode</code>
+                                    <span data-i18n="cmdDark">→ Toggle dark</span>
+                                </div>
+                                <div class="voice-command-item">
+                                    <code>हिंदी</code>
+                                    <span data-i18n="cmdHindi">→ Hindi language</span>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Voice Overlay -->
+    <div class="voice-overlay" id="voiceOverlay" style="display: none;">
+        <div class="voice-overlay-content">
+            <div class="voice-wave-container" id="voiceWave">
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+            </div>
+            <div class="voice-overlay-status" id="overlayStatus">
+                <div class="voice-status-icon" id="overlayIcon">
+                    <i data-lucide="mic"></i>
+                </div>
+                <h2 class="voice-overlay-title" id="overlayTitle" data-i18n="voiceReady">Voice Assistant Ready</h2>
+                <p class="voice-overlay-subtitle" id="overlaySubtitle" data-i18n="tapToSpeak">Tap the microphone and speak</p>
+            </div>
+            <div class="voice-transcript" id="voiceTranscript" style="display: none;">
+                <p id="transcriptText"></p>
+            </div>
+            <div class="voice-overlay-controls">
+                <button class="btn btn-secondary btn-lg" id="overlayCloseBtn" type="button">
+                    <i data-lucide="x"></i>
+                    <span data-i18n="close">Close</span>
+                </button>
+                <button class="btn btn-primary btn-lg" id="overlayMicBtn" type="button">
+                    <i data-lucide="mic"></i>
+                    <span data-i18n="speak">Speak</span>
+                </button>
+            </div>
+            <div class="voice-overlay-help">
+                <p class="text-sm text-muted" id="voiceHelpText" data-i18n="voiceCommandsAvailable">
+                    Say: "soil", "weather", "crop", "disease", "market", "profit", "dark mode", "हिंदी"
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        function updateMenuToggle() {
+            const toggle = document.querySelector('[data-sidebar-toggle]');
+            toggle.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+        }
+        updateMenuToggle();
+        window.addEventListener('resize', updateMenuToggle);
+    </script>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+    <script src="js/features.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (!window.Agriii.Session.requireAuth()) return;
+
+            // Load profile data
+            const session = window.Agriii.Session.get();
+            const profile = window.Agriii.Profile.get();
+
+            // Update profile display
+            document.getElementById('profileName').textContent = session.name || 'Demo Farmer';
+            document.getElementById('profilePhone').textContent = session.phone || '9876543210';
+            document.getElementById('profileInitial').textContent = (session.name || 'D').charAt(0).toUpperCase();
+
+            // Update farm context
+            document.getElementById('contextFarmSize').textContent = (profile.farmSize || '5') + ' ' + (profile.farmUnit || 'acres');
+            document.getElementById('contextCrop').textContent = profile.primaryCrop ? profile.primaryCrop.charAt(0).toUpperCase() + profile.primaryCrop.slice(1) : 'Rice';
+            document.getElementById('contextSoil').textContent = profile.soilType ? profile.soilType.charAt(0).toUpperCase() + profile.soilType.slice(1) : 'Alluvial';
+            document.getElementById('contextIrrigation').textContent = profile.irrigationSource ? profile.irrigationSource.charAt(0).toUpperCase() + profile.irrigationSource.slice(1) : 'Canal';
+
+            // Update language button text
+            const currentLang = window.Agriii.Language.get();
+            document.querySelector('[data-language-toggle]').textContent = currentLang === 'en' ? 'EN' : 'HI';
+            document.getElementById('assistantLanguage').value = currentLang;
+
+            // Initialize assistant page
+            if (typeof window.initAssistantPage === 'function') {
+                window.initAssistantPage();
+            }
+
+            // Language toggle
+            document.querySelector('[data-language-toggle]').addEventListener('click', function() {
+                const lang = window.Agriii?.Language?.toggle();
+                this.textContent = lang === 'en' ? 'EN' : 'HI';
+            });
+
+            // Mobile sidebar functionality
+            const sidebarToggle = document.querySelector('[data-sidebar-toggle]');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                    overlay.classList.toggle('open');
+                });
+            }
+
+            // Category pills
+            document.querySelectorAll('.category-pill').forEach(pill => {
+                pill.addEventListener('click', function() {
+                    document.querySelectorAll('.category-pill').forEach(p => {
+                        p.classList.remove('active');
+                        p.setAttribute('aria-pressed', 'false');
+                    });
+                    this.classList.add('active');
+                    this.setAttribute('aria-pressed', 'true');
+                    filterQuickPrompts(this.dataset.category);
+                });
+            });
+            filterQuickPrompts('all');
+        });
+
+        function filterQuickPrompts(category) {
+            let visibleCount = 0;
+            document.querySelectorAll('.quick-prompt').forEach(prompt => {
+                const categories = (prompt.dataset.category || '').split(/\s+/).filter(Boolean);
+                const shouldShow = category === 'all' || categories.includes(category);
+                prompt.hidden = !shouldShow;
+                if (shouldShow) visibleCount++;
+            });
+            const emptyState = document.getElementById('quickPromptEmpty');
+            if (emptyState) {
+                emptyState.hidden = visibleCount !== 0;
+                emptyState.textContent = window.Agriii.Language.get() === 'hi'
+                    ? 'इस श्रेणी में अभी कोई त्वरित सवाल नहीं है।'
+                    : 'No quick prompts in this category yet.';
+            }
+        }
+    </script>
+</body>
+</html>

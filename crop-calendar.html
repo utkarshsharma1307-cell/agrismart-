@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="navCropCalendar">Crop Calendar - AgriProtect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: var(--color-border);
+            gap: 1px;
+        }
+        .calendar-header-cell {
+            background: var(--color-surface);
+            padding: var(--space-md) var(--space-sm);
+            text-align: center;
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+        .calendar-day {
+            background: var(--color-paper);
+            min-height: 100px;
+            padding: var(--space-sm);
+            display: flex;
+            flex-direction: column;
+            transition: background-color var(--transition-fast);
+            cursor: pointer;
+        }
+        .calendar-day:hover {
+            background: var(--color-surface);
+        }
+        .calendar-day.empty {
+            background: var(--color-bg);
+            cursor: default;
+        }
+        .calendar-day .day-num {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+            color: var(--color-text-secondary);
+        }
+        .calendar-day.today .day-num {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        .event-pill {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .event-pill.warning { background: var(--color-warning-light); color: var(--color-warning); }
+        .event-pill.info { background: var(--color-info-light); color: var(--color-info); }
+        .month-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header">
+                <img src="img/logo.jpeg" alt="AgriProtect Logo" class="sidebar-logo">
+                <div class="sidebar-brand" data-i18n="appName">AgriProtect</div>
+            </a>
+            <nav class="sidebar-nav">
+                <div class="nav-section-title" data-i18n="main">Main</div>
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="globe"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" data-i18n="navDashboard">
+                    <i data-lucide="home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <div class="nav-section-title" data-i18n="farmManagement">Farm Management</div>
+                <a href="soil-health.html" class="nav-item" data-i18n="navSoilHealth">
+                    <i data-lucide="leaf"></i>
+                    <span>Soil Health</span>
+                </a>
+                <a href="weather.html" class="nav-item" data-i18n="navWeather">
+                    <i data-lucide="cloud-sun"></i>
+                    <span>Weather</span>
+                </a>
+                <a href="crop-calendar.html" class="nav-item active" data-i18n="navCropCalendar">
+                    <i data-lucide="calendar"></i>
+                    <span>Crop Calendar</span>
+                </a>
+                <div class="nav-section-title" data-i18n="tools">Tools</div>
+                <a href="crop-advisor.html" class="nav-item" data-i18n="navCropAdvisor">
+                    <i data-lucide="sprout"></i>
+                    <span>Crop Advisor</span>
+                </a>
+                <a href="disease-detection.html" class="nav-item" data-i18n="navDiseaseDetection">
+                    <i data-lucide="microscope"></i>
+                    <span>Disease Detection</span>
+                </a>
+            </nav>
+            <div style="padding: var(--space-lg); border-top: 1px solid var(--color-border-subtle);">
+                <button class="nav-item" style="width: 100%; justify-content: flex-start;" data-logout>
+                    <i data-lucide="log-out"></i>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+        <div class="sidebar-overlay"></div>
+        <main class="app-main">
+            <header class="app-header">
+                <div class="flex items-center gap-md">
+                    <button class="btn btn-icon" data-sidebar-toggle style="display: none;">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1 class="page-title" data-i18n="navCropCalendar">Crop Calendar</h1>
+                </div>
+                <div class="flex items-center gap-sm">
+                    <button class="btn btn-icon" data-theme-toggle title="Toggle theme">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button class="btn btn-icon" data-language-toggle title="Toggle language">
+                        <span style="font-weight: 600;">EN</span>
+                    </button>
+                    <div style="width: 1px; height: 24px; background-color: var(--color-border);"></div>
+                    <button class="btn btn-icon" data-logout>
+                        <i data-lucide="log-out"></i>
+                    </button>
+                </div>
+            </header>
+            <div class="app-content">
+                <div class="page-header">
+                    <h2 data-i18n="navCropCalendar">Crop Calendar</h2>
+                    <button class="btn btn-primary btn-sm" id="addTaskBtn">
+                        <i data-lucide="plus"></i>
+                        <span>Add Task</span>
+                    </button>
+                </div>
+
+                <div class="card" style="margin-bottom: var(--space-xl);">
+                    <div class="month-nav">
+                        <button class="btn btn-ghost btn-icon" id="prevMonth">
+                            <i data-lucide="chevron-left"></i>
+                        </button>
+                        <h3 id="currentMonth" style="margin: 0; font-size: var(--font-size-2xl);">September 2026</h3>
+                        <button class="btn btn-ghost btn-icon" id="nextMonth">
+                            <i data-lucide="chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--color-border); border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden;">
+                        <!-- JS inserts header and days here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        function updateMenuToggle() {
+            document.querySelector('[data-sidebar-toggle]').style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+        }
+        updateMenuToggle();
+        window.addEventListener('resize', updateMenuToggle);
+    </script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.Agriii.Session.requireAuth()) return;
+            document.querySelector('[data-language-toggle]').textContent = window.Agriii.Language.get() === 'en' ? 'EN' : 'HI';
+
+            const calendarGrid = document.getElementById('calendarGrid');
+            const currentMonthEl = document.getElementById('currentMonth');
+            const today = new Date();
+            let currentDate = new Date(today);
+
+            function renderCalendar() {
+                calendarGrid.innerHTML = '';
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+                currentMonthEl.textContent = currentDate.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+
+                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                days.forEach(d => {
+                    calendarGrid.innerHTML += \`<div class="calendar-header-cell">\${d}</div>\`;
+                });
+
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                for (let i = 0; i < firstDay; i++) {
+                    calendarGrid.innerHTML += '<div class="calendar-day empty"></div>';
+                }
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const date = new Date(year, month, day);
+                    const isToday = date.toDateString() === today.toDateString();
+
+                    let pillsHtml = '';
+                    if (day === 22) pillsHtml += '<div class="event-pill info">Sowing Day</div>';
+                    if (day === 24) pillsHtml += '<div class="event-pill">Fertilizer</div>';
+                    if (isToday) pillsHtml += '<div class="event-pill warning">Water</div>';
+                    if (day === 26) pillsHtml += '<div class="event-pill info">Check Traps</div>';
+
+                    calendarGrid.innerHTML += \`
+                        <div class="calendar-day \${isToday ? 'today' : ''}">
+                            <span class="day-num">\${day}</span>
+                            \${pillsHtml}
+                        </div>
+                    \`;
+                }
+
+                // Fill empty days at end
+                const totalCells = firstDay + daysInMonth;
+                const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+                for (let i = 0; i < remainingCells; i++) {
+                    calendarGrid.innerHTML += '<div class="calendar-day empty"></div>';
+                }
+            }
+
+            document.getElementById('prevMonth').addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+            document.getElementById('nextMonth').addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+
+            renderCalendar();
+
+            document.getElementById('addTaskBtn').addEventListener('click', function() {
+                window.Agriii.Toast.info('Task feature - Demo mode', 'Crop Calendar');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Finance - AgriProtect</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- App Layout -->
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header">
+                <img src="img/logo.jpeg" alt="AgriProtect Logo" class="sidebar-logo">
+                <div class="sidebar-brand" data-i18n="appName">AgriProtect</div>
+            </a>
+
+            <nav class="sidebar-nav">
+                <!-- Main -->
+                <div class="nav-section-title">Main</div>
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="globe"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="home"></i>
+                    <span data-i18n="navDashboard">Dashboard</span>
+                </a>
+
+                <!-- Farmer Finance -->
+                <div class="nav-section-title">Farmer Finance</div>
+                <a href="farmer-finance.html" class="nav-item active">
+                    <i data-lucide="wallet"></i>
+                    <span>Farmer Finance</span>
+                </a>
+
+                <!-- Farm Tools -->
+                <div class="nav-section-title">Farm Tools</div>
+                <a href="soil-health.html" class="nav-item" data-i18n="navSoilHealth">
+                    <i data-lucide="leaf"></i>
+                    <span>Soil Health</span>
+                </a>
+                <a href="weather.html" class="nav-item" data-i18n="navWeather">
+                    <i data-lucide="cloud-sun"></i>
+                    <span>Weather</span>
+                </a>
+                <a href="crop-calendar.html" class="nav-item" data-i18n="navCropCalendar">
+                    <i data-lucide="calendar"></i>
+                    <span>Crop Calendar</span>
+                </a>
+                <a href="crop-advisor.html" class="nav-item" data-i18n="navCropAdvisor">
+                    <i data-lucide="sprout"></i>
+                    <span>Crop Advisor</span>
+                </a>
+                <a href="disease-detection.html" class="nav-item" data-i18n="navDiseaseDetection">
+                    <i data-lucide="microscope"></i>
+                    <span>Disease Detection</span>
+                </a>
+                <a href="tasks.html" class="nav-item" data-i18n="navTasks">
+                    <i data-lucide="list-checks"></i>
+                    <span>Tasks</span>
+                </a>
+                <a href="crop-comparison.html" class="nav-item" data-i18n="navCropComparison">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>Crop Comparison</span>
+                </a>
+                <a href="harvest-planner.html" class="nav-item" data-i18n="navHarvestPlanner">
+                    <i data-lucide="truck"></i>
+                    <span>Harvest Planner</span>
+                </a>
+
+                <!-- Assistant -->
+                <div class="nav-section-title">Assistant</div>
+                <a href="assistant.html" class="nav-item" data-i18n="navAssistant">
+                    <i data-lucide="bot"></i>
+                    <span>Farm Assistant</span>
+                </a>
+
+                <!-- System -->
+                <div class="nav-section-title">System</div>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span data-i18n="settings">Settings</span>
+                </a>
+            </nav>
+
+            <div style="padding: var(--space-lg); border-top: 1px solid var(--color-border-subtle);">
+                <button class="nav-item" style="width: 100%; justify-content: flex-start;" data-logout>
+                    <i data-lucide="log-out"></i>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="flex items-center gap-md">
+                    <button class="btn btn-icon mobile-menu-trigger" data-sidebar-toggle style="display: none;">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1 class="page-title">Farmer Finance</h1>
+                </div>
+
+                <div class="flex items-center gap-sm">
+                    <button class="btn btn-icon" data-theme-toggle title="Toggle theme">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button class="btn btn-icon" data-language-toggle title="Toggle language">
+                        <span style="font-weight: 600;">EN</span>
+                    </button>
+                    <div style="width: 1px; height: 24px; background-color: var(--color-border);"></div>
+                    <div class="flex items-center gap-sm">
+                        <div style="width: 36px; height: 36px; background-color: var(--color-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                            <span id="profileInitial">D</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Finance Content -->
+            <div class="app-content">
+                <p class="text-muted" style="margin-bottom: var(--space-xl);">
+                    Manage local demo farm finances in one place — track saved expenses, plan estimated profits, review illustrative market examples, and calculate irrigation and fertilizer costs.
+                </p>
+
+                <!-- Overview Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: var(--color-success-subtle);">
+                            <i data-lucide="trending-up" style="color: var(--color-success);"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">Current Market Value</div>
+                            <div class="stat-value" id="marketValue">₹0</div>
+                            <div class="stat-change" id="marketValueNote">Demo estimate</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: var(--color-primary-subtle);">
+                            <i data-lucide="calculator" style="color: var(--color-primary);"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">Estimated Profit</div>
+                            <div class="stat-value" id="estimatedProfit">₹0</div>
+                            <div class="stat-change" id="estimatedProfitNote">Based on saved Profit Planner inputs</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: var(--color-warning-subtle);">
+                            <i data-lucide="receipt" style="color: var(--color-warning);"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">Total Expenses</div>
+                            <div class="stat-value" id="totalExpenses">₹0</div>
+                            <div class="stat-change" id="totalExpensesNote">From saved Expense Tracker records</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: var(--color-info-subtle);">
+                            <i data-lucide="droplet" style="color: var(--color-info);"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-label">Upcoming Farm Cost</div>
+                            <div class="stat-value" id="upcomingCosts">₹0</div>
+                            <div class="stat-change" id="upcomingCostsNote">Demo estimate for next 30 days</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Cards -->
+                <div class="tool-card-grid">
+                    <!-- Market Prices -->
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i data-lucide="trending-up"></i>
+                            <span data-i18n="navMarketPrices">Market Prices</span>
+                        </h3>
+                        <p class="text-sm text-muted" style="margin-bottom: var(--space-md);">
+                            Check current mandi prices for your crops and track market trends to make informed selling decisions.
+                        </p>
+                        <div class="card-actions">
+                            <a href="market-prices.html" class="btn btn-primary">
+                                <i data-lucide="trending-up"></i>
+                                <span>View Market Prices</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Profit Planner -->
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i data-lucide="calculator"></i>
+                            <span data-i18n="navProfitPlanner">Profit Planner</span>
+                        </h3>
+                        <p class="text-sm text-muted" style="margin-bottom: var(--space-md);">
+                            Plan your crop revenue, track costs, and calculate expected profit margins with detailed break-even analysis.
+                        </p>
+                        <div class="card-actions">
+                            <a href="profit-planner.html" class="btn btn-primary">
+                                <i data-lucide="calculator"></i>
+                                <span>Plan Profits</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Expense Tracker -->
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i data-lucide="receipt"></i>
+                            <span data-i18n="navExpenses">Expense Tracker</span>
+                        </h3>
+                        <p class="text-sm text-muted" style="margin-bottom: var(--space-md);">
+                            Record and categorize all your farm expenses — seeds, fertilizer, labor, equipment, and more.
+                        </p>
+                        <div class="card-actions">
+                            <a href="expenses.html" class="btn btn-primary">
+                                <i data-lucide="receipt"></i>
+                                <span>Track Expenses</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Irrigation Calculator -->
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i data-lucide="droplet"></i>
+                            <span data-i18n="navIrrigation">Irrigation Calculator</span>
+                        </h3>
+                        <p class="text-sm text-muted" style="margin-bottom: var(--space-md);">
+                            Calculate water requirements and irrigation costs based on your crop type, farm size, and irrigation method.
+                        </p>
+                        <div class="card-actions">
+                            <a href="irrigation-calculator.html" class="btn btn-primary">
+                                <i data-lucide="droplet"></i>
+                                <span>Calculate Irrigation</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Fertilizer Calculator -->
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i data-lucide="flask-conical"></i>
+                            <span data-i18n="navFertilizer">Fertilizer Calculator</span>
+                        </h3>
+                        <p class="text-sm text-muted" style="margin-bottom: var(--space-md);">
+                            Estimate fertilizer requirements (N-P-K) and costs for optimal crop nutrition based on your soil and crop type.
+                        </p>
+                        <div class="card-actions">
+                            <a href="fertilizer-calculator.html" class="btn btn-primary">
+                                <i data-lucide="flask-conical"></i>
+                                <span>Calculate Fertilizer</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function updateMenuToggle() {
+            const toggle = document.querySelector('[data-sidebar-toggle]');
+            if (toggle) toggle.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+        }
+        updateMenuToggle();
+        window.addEventListener('resize', updateMenuToggle);
+    </script>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (!window.Agriii?.Session?.requireAuth()) return;
+
+            // Update profile display
+            const session = window.Agriii?.Session?.get() || {};
+            document.getElementById('profileInitial').textContent = (session.name || 'D').charAt(0).toUpperCase();
+
+            // Update language button
+            const currentLang = window.Agriii?.Language?.get() || 'en';
+            document.querySelector('[data-language-toggle]').textContent = currentLang === 'en' ? 'EN' : 'HI';
+
+            // Language toggle
+            document.querySelector('[data-language-toggle]').addEventListener('click', function() {
+                const lang = window.Agriii?.Language?.toggle();
+                this.textContent = lang === 'en' ? 'EN' : 'HI';
+            });
+
+            // Load and display financial overview
+            loadFinancialOverview();
+            window.addEventListener('pageshow', loadFinancialOverview);
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) loadFinancialOverview();
+            });
+
+            // Mobile sidebar
+            const sidebarToggle = document.querySelector('[data-sidebar-toggle]');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                    overlay.classList.toggle('open');
+                });
+            }
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('open');
+                });
+            }
+        });
+
+        function loadFinancialOverview() {
+            const formatCurrency = window.Agriii.Utils.formatCurrency;
+            const number = value => {
+                const parsed = Number.parseFloat(value);
+                return Number.isFinite(parsed) ? parsed : 0;
+            };
+            const expensesRaw = window.Agriii.Storage.get('expenses');
+            const expenses = Array.isArray(expensesRaw) ? expensesRaw : [];
+            const totalExpenses = expenses.reduce((sum, exp) => sum + number(exp.amount), 0);
+            document.getElementById('totalExpenses').textContent = formatCurrency(totalExpenses);
+            document.getElementById('totalExpensesNote').textContent = expenses.length
+                ? `${expenses.length} saved local record${expenses.length === 1 ? '' : 's'}`
+                : 'No saved expenses yet';
+
+            const planner = window.Agriii.Storage.get('profitPlanner') || {};
+            const costs = planner.costs && typeof planner.costs === 'object' ? planner.costs : {};
+            const totalPlanCost = Object.values(costs).reduce((sum, value) => sum + number(value), 0);
+            const areaValue = number(planner.areaValue);
+            const yieldPerUnit = number(planner.yieldPerUnit);
+            const sellingPrice = number(planner.sellingPrice);
+            const totalYield = areaValue * yieldPerUnit;
+            const grossRevenue = totalYield * sellingPrice;
+            const netProfit = grossRevenue - totalPlanCost;
+            const hasPlannerEstimate = areaValue > 0 && yieldPerUnit > 0 && sellingPrice > 0;
+
+            document.getElementById('estimatedProfit').textContent = hasPlannerEstimate ? formatCurrency(netProfit) : '₹0';
+            document.getElementById('estimatedProfitNote').textContent = hasPlannerEstimate
+                ? `Demo estimate: ${totalYield.toFixed(1)} quintal at ${formatCurrency(sellingPrice)}/quintal`
+                : 'Add Profit Planner inputs to estimate profit';
+
+            document.getElementById('marketValue').textContent = hasPlannerEstimate ? formatCurrency(grossRevenue) : '₹0';
+            document.getElementById('marketValueNote').textContent = hasPlannerEstimate
+                ? 'Gross revenue estimate from saved plan, not live market data'
+                : 'No saved Profit Planner estimate';
+
+            const upcomingCosts = Math.round((totalExpenses * 0.3) + (totalPlanCost * 0.2));
+            document.getElementById('upcomingCosts').textContent = upcomingCosts > 0 ? formatCurrency(upcomingCosts) : '₹0';
+            document.getElementById('upcomingCostsNote').textContent = upcomingCosts > 0
+                ? 'Illustrative estimate from saved local data'
+                : 'Add expenses or planner costs for an estimate';
+        }
+    </script>
+</body>
+</html>

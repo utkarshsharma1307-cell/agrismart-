@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="settings">Settings - AgriProtect</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- App Layout -->
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-header">
+                <img src="img/logo.jpeg" alt="AgriProtect Logo" class="sidebar-logo">
+                <div class="sidebar-brand" data-i18n="appName">AgriProtect</div>
+            </a>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title" data-i18n="main">Main</div>
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="globe"></i>
+                    <span>Home</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" data-i18n="navDashboard">
+                    <i data-lucide="home"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <div class="nav-section-title" data-i18n="farmManagement">Farm Management</div>
+                <a href="soil-health.html" class="nav-item" data-i18n="navSoilHealth">
+                    <i data-lucide="leaf"></i>
+                    <span>Soil Health</span>
+                </a>
+                <a href="weather.html" class="nav-item" data-i18n="navWeather">
+                    <i data-lucide="cloud-sun"></i>
+                    <span>Weather</span>
+                </a>
+                <a href="crop-calendar.html" class="nav-item" data-i18n="navCropCalendar">
+                    <i data-lucide="calendar"></i>
+                    <span>Crop Calendar</span>
+                </a>
+
+                <div class="nav-section-title" data-i18n="tools">Tools</div>
+                <a href="crop-advisor.html" class="nav-item" data-i18n="navCropAdvisor">
+                    <i data-lucide="sprout"></i>
+                    <span>Crop Advisor</span>
+                </a>
+                <a href="disease-detection.html" class="nav-item" data-i18n="navDiseaseDetection">
+                    <i data-lucide="microscope"></i>
+                    <span>Disease Detection</span>
+                </a>
+
+                <div class="nav-section-title" data-i18n="other">Other</div>
+                <a href="farmer-finance.html" class="nav-item" data-i18n="navFarmerFinance">
+                    <i data-lucide="wallet"></i>
+                    <span>Farmer Finance</span>
+                </a>
+                <a href="tasks.html" class="nav-item" data-i18n="navTasks">
+                    <i data-lucide="list-checks"></i>
+                    <span>Tasks</span>
+                </a>
+                <a href="assistant.html" class="nav-item" data-i18n="navAssistant">
+                    <i data-lucide="bot"></i>
+                    <span>Farm Assistant</span>
+                </a>
+                <a href="settings.html" class="nav-item active" data-i18n="settings">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div style="padding: var(--space-lg); border-top: 1px solid var(--color-border-subtle);">
+                <button class="nav-item" style="width: 100%; justify-content: flex-start;" data-logout>
+                    <i data-lucide="log-out"></i>
+                    <span data-i18n="logout">Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="flex items-center gap-md">
+                    <button class="btn btn-icon mobile-menu-trigger" data-sidebar-toggle style="display: none;">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1 class="page-title" data-i18n="settings">Settings</h1>
+                </div>
+
+                <div class="flex items-center gap-sm">
+                    <button class="btn btn-icon" data-theme-toggle title="Toggle theme">
+                        <i data-lucide="moon" data-theme-icon></i>
+                    </button>
+                    <button class="btn btn-icon" data-language-toggle title="Toggle language">
+                        <span style="font-weight: 600;">EN</span>
+                    </button>
+                    <div style="width: 1px; height: 24px; background-color: var(--color-border);"></div>
+                    <div class="flex items-center gap-sm">
+                        <div style="width: 36px; height: 36px; background-color: var(--color-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                            <span id="profileInitial">D</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Settings Content -->
+            <div class="app-content">
+                <h2 data-i18n="settings">Settings</h2>
+                <p class="text-muted" data-i18n="settingsDesc">Customize your AgriProtect experience</p>
+
+                <div class="settings-container">
+                    <!-- Farm Profile Section -->
+                    <section class="settings-section">
+                        <h3 class="settings-section-title">
+                            <i data-lucide="farm"></i>
+                            <span data-i18n="farmProfile">Farm Profile</span>
+                        </h3>
+                        <div class="settings-card">
+                            <form id="profileForm">
+                                <div class="settings-form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label" for="profileName" data-i18n="farmerName">Farmer Name</label>
+                                        <input type="text" class="form-input" id="profileName" data-i18n-placeholder="enterName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="profilePhone" data-i18n="phone">Phone Number</label>
+                                        <input type="tel" class="form-input" id="profilePhone" data-i18n-placeholder="enterPhone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="profileState" data-i18n="state">State</label>
+                                        <input type="text" class="form-input" id="profileState" data-i18n-placeholder="enterState">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="profileDistrict" data-i18n="district">District</label>
+                                        <input type="text" class="form-input" id="profileDistrict" data-i18n-placeholder="enterDistrict">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="profileFarmSize" data-i18n="farmSize">Farm Size</label>
+                                        <input type="number" class="form-input" id="profileFarmSize" min="0" step="0.1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="profileUnit" data-i18n="unit">Unit</label>
+                                        <select class="form-select" id="profileUnit">
+                                            <option value="acres" data-i18n="acres">Acres</option>
+                                            <option value="hectares" data-i18n="hectares">Hectares</option>
+                                            <option value="sqm" data-i18n="sqm">Square Meters</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="profilePrimaryCrop" data-i18n="primaryCrop">Primary Crop</label>
+                                        <select class="form-select" id="profilePrimaryCrop">
+                                            <option value="rice">Rice</option>
+                                            <option value="wheat">Wheat</option>
+                                            <option value="cotton">Cotton</option>
+                                            <option value="sugarcane">Sugarcane</option>
+                                            <option value="maize">Maize</option>
+                                            <option value="pulses">Pulses</option>
+                                            <option value="oilseeds">Oilseeds</option>
+                                            <option value="other" data-i18n="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="profileSoilType" data-i18n="soilType">Soil Type</label>
+                                        <select class="form-select" id="profileSoilType">
+                                            <option value="alluvial" data-i18n="alluvial">Alluvial</option>
+                                            <option value="black" data-i18n="black">Black (Regur)</option>
+                                            <option value="red" data-i18n="red">Red</option>
+                                            <option value="laterite" data-i18n="laterite">Laterite</option>
+                                            <option value="arid" data-i18n="arid">Arid</option>
+                                            <option value="mountain" data-i18n="mountain">Mountain</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="profileIrrigationSource" data-i18n="irrigationSource">Irrigation Source</label>
+                                        <select class="form-select" id="profileIrrigationSource">
+                                            <option value="canal" data-i18n="canal">Canal</option>
+                                            <option value="well" data-i18n="well">Well</option>
+                                            <option value="tubewell" data-i18n="tubewell">Tube Well</option>
+                                            <option value="tank" data-i18n="tank">Tank</option>
+                                            <option value="rainfall" data-i18n="rainfall">Rainfall</option>
+                                            <option value="other" data-i18n="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary" data-i18n="saveProfile">Save Profile</button>
+                                    <button type="button" class="btn btn-secondary" id="resetProfile" data-i18n="reset">Reset</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- Voice Settings Section -->
+                    <section class="settings-section">
+                        <h3 class="settings-section-title">
+                            <i data-lucide="mic"></i>
+                            <span data-i18n="voiceSettings">Voice Assistant</span>
+                        </h3>
+                        <div class="settings-card">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="voiceEnabled" checked>
+                                    <label class="form-check-label" for="voiceEnabled" data-i18n="enableVoice">Enable Voice Assistant</label>
+                                </div>
+                                <p class="form-hint" data-i18n="voiceEnabledDesc">
+                                    Toggle voice input for the Farm Assistant. When disabled, use text chat only.
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="voiceRate" data-i18n="voiceRate">Voice Speed</label>
+                                <input type="range" class="form-range" id="voiceRate" min="0.5" max="2" step="0.1" value="0.9">
+                                <span class="form-range-value" id="voiceRateValue">0.9x</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="voicePitch" data-i18n="voicePitch">Voice Pitch</label>
+                                <input type="range" class="form-range" id="voicePitch" min="0.5" max="2" step="0.1" value="1">
+                                <span class="form-range-value" id="voicePitchValue">1x</span>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="testVoice" data-i18n="testVoice">Test Voice</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Notifications Section -->
+                    <section class="settings-section">
+                        <h3 class="settings-section-title">
+                            <i data-lucide="bell"></i>
+                            <span data-i18n="notifications">Notifications</span>
+                        </h3>
+                        <div class="settings-card">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="taskNotifications" checked>
+                                    <label class="form-check-label" for="taskNotifications" data-i18n="taskNotifications">Task Reminders</label>
+                                </div>
+                                <p class="form-hint" data-i18n="taskNotificationsDesc">
+                                    Get notified about upcoming tasks and deadlines
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="weatherAlerts" checked>
+                                    <label class="form-check-label" for="weatherAlerts" data-i18n="weatherAlerts">Weather Alerts</label>
+                                </div>
+                                <p class="form-hint" data-i18n="weatherAlertsDesc">
+                                    Receive notifications for extreme weather conditions
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="marketAlerts">
+                                    <label class="form-check-label" for="marketAlerts" data-i18n="marketAlerts">Market Price Alerts</label>
+                                </div>
+                                <p class="form-hint" data-i18n="marketAlertsDesc">
+                                    Get notified when market prices change significantly
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Data & Privacy Section -->
+                    <section class="settings-section">
+                        <h3 class="settings-section-title">
+                            <i data-lucide="shield"></i>
+                            <span data-i18n="dataPrivacy">Data & Privacy</span>
+                        </h3>
+                        <div class="settings-card">
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="dataStorage">Local Storage</label>
+                                <p class="form-hint" data-i18n="dataStorageDesc">
+                                    All your data is stored locally in your browser. No data is sent to external servers.
+                                </p>
+                            </div>
+                            <hr class="settings-divider">
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="exportData">Export Data</label>
+                                <p class="form-hint" data-i18n="exportDataDesc">
+                                    Download all your farm data as a JSON file
+                                </p>
+                                <button type="button" class="btn btn-secondary" id="exportData" data-i18n="export">Export</button>
+                            </div>
+                            <hr class="settings-divider">
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="importData">Import Data</label>
+                                <p class="form-hint" data-i18n="importDataDesc">
+                                    Restore your data from a previously exported JSON file
+                                </p>
+                                <input type="file" class="form-input" id="importFile" accept=".json,application/json" style="max-width: 250px;">
+                            </div>
+                            <hr class="settings-divider">
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="clearData">Clear All Data</label>
+                                <p class="form-hint" style="color: var(--color-error);" data-i18n="clearDataDesc">
+                                    This will delete all saved farm data, tasks, expenses, and preferences. This action cannot be undone.
+                                </p>
+                                <button type="button" class="btn btn-danger" id="clearAllData" data-i18n="clearAll">Clear All Data</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- About Section -->
+                    <section class="settings-section">
+                        <h3 class="settings-section-title">
+                            <i data-lucide="info"></i>
+                            <span data-i18n="about">About</span>
+                        </h3>
+                        <div class="settings-card">
+                            <div class="about-info">
+                                <div class="about-item">
+                                    <span class="about-label" data-i18n="version">Version</span>
+                                    <span class="about-value">1.0.0</span>
+                                </div>
+                                <div class="about-item">
+                                    <span class="about-label" data-i18n="app">AgriProtect</span>
+                                    <span class="about-value" data-i18n="agriprotectDesc">Smart Farming Companion</span>
+                                </div>
+                                <div class="about-item">
+                                    <span class="about-label" data-i18n="storageUsed">Storage Used</span>
+                                    <span class="about-value" id="storageUsed">-- KB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function updateMenuToggle() {
+            const toggle = document.querySelector('[data-sidebar-toggle]');
+            toggle.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+        }
+        updateMenuToggle();
+        window.addEventListener('resize', updateMenuToggle);
+    </script>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (!window.Agriii?.Session?.requireAuth()) return;
+            const { Storage, Toast, Validator, Language, Profile, Theme } = window.Agriii;
+
+            // Load profile form values
+            loadProfileForm();
+
+            // Profile form submit
+            const profileForm = document.getElementById('profileForm');
+            profileForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const activeSession = window.Agriii.Session.get() || {};
+                const activeProfile = window.Agriii.Profile.get();
+                const farmSize = parseFloat(document.getElementById('profileFarmSize').value);
+                const phone = document.getElementById('profilePhone').value.trim();
+
+                if (phone && !window.Agriii.Validator.phone(phone)) {
+                    window.Agriii.Validator.showError(document.getElementById('profilePhone'), window.Agriii.Language.t('invalidPhone'));
+                    return;
+                }
+                if (!Number.isFinite(farmSize) || farmSize <= 0) {
+                    window.Agriii.Validator.showError(document.getElementById('profileFarmSize'), window.Agriii.Language.get() === 'hi' ? 'खेत का आकार शून्य से बड़ा होना चाहिए।' : 'Farm size must be greater than zero.');
+                    return;
+                }
+
+                const updates = {
+                    name: document.getElementById('profileName').value.trim() || activeSession.name || activeProfile.name,
+                    phone: phone || activeSession.phone || activeProfile.phone,
+                    state: document.getElementById('profileState').value.trim() || activeProfile.state,
+                    district: document.getElementById('profileDistrict').value.trim() || activeProfile.district,
+                    farmSize,
+                    farmUnit: document.getElementById('profileUnit').value || activeProfile.farmUnit,
+                    primaryCrop: document.getElementById('profilePrimaryCrop').value || activeProfile.primaryCrop,
+                    soilType: document.getElementById('profileSoilType').value || activeProfile.soilType,
+                    irrigationSource: document.getElementById('profileIrrigationSource').value || activeProfile.irrigationSource,
+                    updatedAt: new Date().toISOString()
+                };
+                Profile.update(updates);
+                Storage.set('session', { ...activeSession, name: updates.name, phone: updates.phone });
+                document.getElementById('profileInitial').textContent = (updates.name || 'D').charAt(0).toUpperCase();
+                Toast.success(Language.get() === 'hi' ? 'प्रोफ़ाइल सेव हो गई' : 'Profile saved successfully');
+            });
+
+            // Reset profile
+            document.getElementById('resetProfile').addEventListener('click', function() {
+                if (!confirm(Language.get() === 'hi' ? 'प्रोफ़ाइल रीसेट करें?' : 'Reset profile to default?')) return;
+                const defaults = Profile.getDefault();
+                Profile.set(defaults);
+                loadProfileForm();
+                document.getElementById('profileInitial').textContent = (defaults.name || 'D').charAt(0).toUpperCase();
+                Toast.success(Language.get() === 'hi' ? 'प्रोफ़ाइल रीसेट हो गई' : 'Profile reset');
+            });
+
+            // Voice settings
+            const voiceEnabled = document.getElementById('voiceEnabled');
+            const voiceRate = document.getElementById('voiceRate');
+            const voicePitch = document.getElementById('voicePitch');
+            const voiceRateValue = document.getElementById('voiceRateValue');
+            const voicePitchValue = document.getElementById('voicePitchValue');
+
+            // Load voice settings
+            voiceEnabled.checked = Storage.get('voice_enabled') !== false;
+            voiceRate.value = Storage.get('voice_rate') || '0.9';
+            voicePitch.value = Storage.get('voice_pitch') || '1';
+            updateVoiceValues();
+
+            voiceEnabled.addEventListener('change', function() {
+                Storage.set('voice_enabled', this.checked);
+            });
+
+            voiceRate.addEventListener('input', function() {
+                voiceRateValue.textContent = parseFloat(this.value).toFixed(1) + 'x';
+                Storage.set('voice_rate', this.value);
+            });
+
+            voicePitch.addEventListener('input', function() {
+                voicePitchValue.textContent = parseFloat(this.value).toFixed(1) + 'x';
+                Storage.set('voice_pitch', this.value);
+            });
+
+            // Test voice
+            document.getElementById('testVoice').addEventListener('click', function() {
+                const activeLang = Language.get();
+                if (!voiceEnabled.checked) {
+                    Toast.warning(activeLang === 'hi' ? 'कृपया पहले आवाज़ सक्षम करें' : 'Please enable voice first');
+                    return;
+                }
+                const testText = activeLang === 'hi' ? 'मैं आपका स्थानीय डेमो कृषि सहायक हूँ। मैं आपकी कैसे मदद कर सकता हूँ?' : 'I am your local demo farm assistant. How can I help you?';
+                const spoke = Assistant.speak(testText, activeLang);
+                if (spoke) Toast.success(activeLang === 'hi' ? 'आवाज़ परीक्षण' : 'Voice test played');
+                else Toast.warning(activeLang === 'hi' ? 'इस ब्राउज़र में आवाज़ उपलब्ध नहीं है।' : 'Voice output is not available in this browser.');
+            });
+
+            // Notification settings
+            const taskNotifications = document.getElementById('taskNotifications');
+            const weatherAlerts = document.getElementById('weatherAlerts');
+            const marketAlerts = document.getElementById('marketAlerts');
+
+            taskNotifications.checked = Storage.get('task_notifications') !== false;
+            weatherAlerts.checked = Storage.get('weather_alerts') !== false;
+            marketAlerts.checked = Storage.get('market_alerts') === true;
+
+            taskNotifications.addEventListener('change', function() {
+                Storage.set('task_notifications', this.checked);
+            });
+            weatherAlerts.addEventListener('change', function() {
+                Storage.set('weather_alerts', this.checked);
+            });
+            marketAlerts.addEventListener('change', function() {
+                Storage.set('market_alerts', this.checked);
+            });
+
+            // Export data
+            document.getElementById('exportData').addEventListener('click', function() {
+                const data = {
+                    app: 'AgriProtect',
+                    version: 2,
+                    exportedAt: new Date().toISOString(),
+                    profile: Profile.get(),
+                    data: {
+                        tasks: Storage.get('tasks') || [],
+                        expenses: Storage.get('expenses') || [],
+                        harvestPlan: Storage.get('harvestPlan') || {},
+                        irrigationPlan: Storage.get('irrigationPlan') || {},
+                        fertilizerPlan: Storage.get('fertilizerPlan') || {},
+                        profitPlanner: Storage.get('profitPlanner') || {},
+                        assistantHistory: Storage.get('assistantHistory') || []
+                    },
+                    settings: {
+                        theme: Theme.get(),
+                        language: Language.get(),
+                        voice_enabled: Storage.get('voice_enabled') !== false,
+                        voice_rate: Storage.get('voice_rate') || '0.9',
+                        voice_pitch: Storage.get('voice_pitch') || '1',
+                        task_notifications: Storage.get('task_notifications') !== false,
+                        weather_alerts: Storage.get('weather_alerts') !== false,
+                        market_alerts: Storage.get('market_alerts') === true
+                    }
+                };
+
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'agriprotect-data-export.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                Toast.success(Language.get() === 'hi' ? 'डेटा निर्यात हो गया' : 'Data exported successfully');
+            });
+
+            // Import data
+            document.getElementById('importFile').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                if (file.type && file.type !== 'application/json' && !file.name.toLowerCase().endsWith('.json')) {
+                    Toast.error(Language.get() === 'hi' ? 'कृपया JSON फ़ाइल चुनें।' : 'Please choose a JSON file.');
+                    e.target.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const raw = JSON.parse(event.target.result);
+                        if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new Error('Invalid export file.');
+                        const dataSource = raw.data && typeof raw.data === 'object' ? raw.data : raw;
+                        const settingsSource = raw.settings && typeof raw.settings === 'object' ? raw.settings : raw;
+                        const supportedData = {
+                            tasks: 'array', expenses: 'array', assistantHistory: 'array',
+                            harvestPlan: 'object', irrigationPlan: 'object', fertilizerPlan: 'object', profitPlanner: 'object'
+                        };
+                        const supportedSettings = {
+                            voice_enabled: 'boolean', task_notifications: 'boolean', weather_alerts: 'boolean', market_alerts: 'boolean',
+                            voice_rate: 'string', voice_pitch: 'string', theme: 'string', language: 'string'
+                        };
+                        const writes = [];
+
+                        if (raw.profile) {
+                            if (typeof raw.profile !== 'object' || Array.isArray(raw.profile)) throw new Error('Profile has an unsupported format.');
+                            const nextProfile = { ...Profile.getDefault(), ...raw.profile };
+                            if (nextProfile.phone && !Validator.phone(String(nextProfile.phone))) throw new Error('Profile phone must be a 10-digit number.');
+                            if (!Number.isFinite(Number.parseFloat(nextProfile.farmSize)) || Number.parseFloat(nextProfile.farmSize) <= 0) throw new Error('Profile farm size must be greater than zero.');
+                            nextProfile.farmSize = Number.parseFloat(nextProfile.farmSize);
+                            writes.push(() => Profile.set(nextProfile));
+                        }
+
+                        Object.entries(supportedData).forEach(([key, expected]) => {
+                            if (!Object.prototype.hasOwnProperty.call(dataSource, key)) return;
+                            const value = dataSource[key];
+                            if ((expected === 'array' && !Array.isArray(value)) || (expected === 'object' && (!value || typeof value !== 'object' || Array.isArray(value)))) {
+                                throw new Error(key + ' has an unsupported format.');
+                            }
+                            writes.push(() => Storage.set(key, value));
+                        });
+
+                        Object.entries(supportedSettings).forEach(([key, expected]) => {
+                            if (!Object.prototype.hasOwnProperty.call(settingsSource, key)) return;
+                            const value = settingsSource[key];
+                            if (typeof value !== expected) throw new Error(key + ' has an unsupported format.');
+                            if (key === 'language' && !['en', 'hi'].includes(value)) throw new Error('Language must be en or hi.');
+                            if (key === 'theme' && !['light', 'dark'].includes(value)) throw new Error('Theme must be light or dark.');
+                            writes.push(() => key === 'language' ? Language.set(value) : key === 'theme' ? Theme.set(value) : Storage.set(key, value));
+                        });
+
+                        if (!writes.length) throw new Error('No supported AgriProtect data was found.');
+                        writes.forEach(write => write());
+                        loadProfileForm();
+                        const updatedProfile = Profile.get();
+                        document.getElementById('profileInitial').textContent = (updatedProfile.name || 'D').charAt(0).toUpperCase();
+                        voiceEnabled.checked = Storage.get('voice_enabled') !== false;
+                        voiceRate.value = Storage.get('voice_rate') || '0.9';
+                        voicePitch.value = Storage.get('voice_pitch') || '1';
+                        updateVoiceValues();
+                        taskNotifications.checked = Storage.get('task_notifications') !== false;
+                        weatherAlerts.checked = Storage.get('weather_alerts') !== false;
+                        marketAlerts.checked = Storage.get('market_alerts') === true;
+                        document.getElementById('storageUsed').textContent = getStorageUsed();
+                        Toast.success(Language.get() === 'hi' ? 'डेटा आयात हो गया' : 'Data imported successfully');
+                    } catch (err) {
+                        Toast.error((Language.get() === 'hi' ? 'डेटा आयात विफल: ' : 'Data import failed: ') + (err.message || 'Invalid file'));
+                    } finally {
+                        e.target.value = '';
+                    }
+                };
+                reader.onerror = function() {
+                    Toast.error(Language.get() === 'hi' ? 'फ़ाइल पढ़ी नहीं जा सकी।' : 'Could not read the selected file.');
+                    e.target.value = '';
+                };
+                reader.readAsText(file);
+            });
+
+            // Clear all data
+            document.getElementById('clearAllData').addEventListener('click', function() {
+                if (!confirm(Language.get() === 'hi' ? 'सभी डेटा साफ़ करें? यह कार्रवाई वापस नहीं की जा सकती' : 'Clear all data? This cannot be undone')) return;
+
+                Storage.clear();
+                Session.clear();
+                Profile.set(Profile.getDefault());
+                window.location.href = 'login.html';
+            });
+
+            // Storage used
+            function getStorageUsed() {
+                let size = 0;
+                for (let key in localStorage) {
+                    if (localStorage.hasOwnProperty(key)) {
+                        size += localStorage[key].length * 2;
+                    }
+                }
+                return (size / 1024).toFixed(1) + ' KB';
+            }
+            document.getElementById('storageUsed').textContent = getStorageUsed();
+
+            // Language toggle
+            document.querySelector('[data-language-toggle]').addEventListener('click', function() {
+                const lang = Language.toggle();
+                this.textContent = lang === 'en' ? 'EN' : 'HI';
+            });
+
+            // Mobile sidebar
+            const sidebarToggle = document.querySelector('[data-sidebar-toggle]');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                    overlay.classList.toggle('open');
+                });
+            }
+        });
+
+        function loadProfileForm() {
+            const profile = window.Agriii.Profile.get();
+            document.getElementById('profileName').value = profile.name || '';
+            document.getElementById('profilePhone').value = profile.phone || '';
+            document.getElementById('profileState').value = profile.state || '';
+            document.getElementById('profileDistrict').value = profile.district || '';
+            document.getElementById('profileFarmSize').value = profile.farmSize || '';
+            document.getElementById('profileUnit').value = profile.farmUnit || 'acres';
+            document.getElementById('profilePrimaryCrop').value = profile.primaryCrop || 'rice';
+            document.getElementById('profileSoilType').value = profile.soilType || 'alluvial';
+            document.getElementById('profileIrrigationSource').value = profile.irrigationSource || 'canal';
+        }
+
+        function updateVoiceValues() {
+            document.getElementById('voiceRateValue').textContent = document.getElementById('voiceRate').value + 'x';
+            document.getElementById('voicePitchValue').textContent = document.getElementById('voicePitch').value + 'x';
+        }
+    </script>
+</body>
+</html>
